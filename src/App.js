@@ -427,8 +427,8 @@ const useCountdown = () => {
 };
 
 // ─── Bank details — update with your real details ────────────
-const BANK_NAME    = "Your Bank Name";
-const ACCOUNT_NAME = "Your Name";
+const BANK_NAME    = "Monzo Bank";
+const ACCOUNT_NAME = "Oluwafunmibi Mary John-Aloba";
 const SORT_CODE    = "00-00-00";
 const ACCOUNT_NO   = "00000000";
 
@@ -555,7 +555,7 @@ const AsoebItems = ({ onConfirm, onBack, saving }) => {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "later" ? 14 : 0 }}>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Later</div>
-                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>bank transfer — must be by 15 May</div>
+                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>Bank transfer - must be by 15 May</div>
               </div>
               <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "later" ? GOLD : NAVY + "33"), background: payMethod === "later" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 {payMethod === "later" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
