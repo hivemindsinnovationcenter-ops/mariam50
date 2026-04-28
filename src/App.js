@@ -506,6 +506,7 @@ export default function App() {
   };
   const handleAsoebItem = async (item) => {
   await save({ attending:true, asoebi_choice:"yes", asoebi_item:item, payment_status:"pending" });
+  setDoneType("asoebi_items"); setView("done");
   };
 
   if(view==="home")         return <HomeView onStart={()=>setView("details")}/>;
