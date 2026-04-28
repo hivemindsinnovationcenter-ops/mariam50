@@ -757,7 +757,7 @@ function AsoebItems(props) {
             }}>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Now</div>
-                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>via Monzo link</div>
+                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>via link</div>
               </div>
               <div style={{
                 width: 18, height: 18, borderRadius: "50%",
@@ -787,7 +787,7 @@ function AsoebItems(props) {
                   fontFamily: "'Jost',sans-serif",
                 }}
               >
-                Open Monzo →
+                Open Link →
               </a>
             )}
           </div>
@@ -813,7 +813,7 @@ function AsoebItems(props) {
               <div>
                 <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Later</div>
                 <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>
-                  bank transfer — must be by 15 May
+                  Bank transfer - must be by 15 May
                 </div>
               </div>
               <div style={{
