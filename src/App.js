@@ -429,8 +429,8 @@ const useCountdown = () => {
 // ─── Bank details — update with your real details ────────────
 const BANK_NAME    = "Monzo Bank";
 const ACCOUNT_NAME = "Oluwafunmibi Mary John-Aloba";
-const SORT_CODE    = "00-00-00";
-const ACCOUNT_NO   = "00000000";
+const SORT_CODE    = "04-00-03";
+const ACCOUNT_NO   = "06775165";
 
 const ITEMS = [
   { key: "asoebi_gele", label: "Asoebi + Gele", price: "£150" },
