@@ -329,7 +329,6 @@ const Dashboard = ({ token,onLogout }) => {
   const attendingLabel = v => v===true?"Yes":v===false?"No":"—";
   const asoColor = v => v==="yes_paid"?"blue":v==="yes"?"gold":"gray";
   const asoLabel = v => v==="yes_paid"?"Yes — paid":v==="yes"?"Yes — pending":v==="no"?"No":"—";
-  const payColor = v => v==="paid"?"teal":v==="pending"?"purple":"gray";
 
   return (
     <div style={{minHeight:"100vh",background:CREAM2}}>
