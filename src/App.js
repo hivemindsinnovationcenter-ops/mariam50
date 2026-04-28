@@ -44,7 +44,7 @@ var ACCOUNT_NAME = "Your Name";
 var SORT_CODE    = "00-00-00";
 var ACCOUNT_NO   = "00000000";
 
-var DEADLINE = new Date("2025-05-15T23:59:59");
+var DEADLINE = new Date("2026-05-15T23:59:59");
 
 function injectStyles() {
   if (document.getElementById("m50-styles")) return;
@@ -295,7 +295,7 @@ function EventHeader(props) {
         textTransform: "uppercase", color: GOLD,
         marginBottom: 10, fontWeight: 500,
       }}>
-        08 · 08 · 2025
+        08 · 08 · 2026
       </div>
       <h1 style={{
         fontFamily: "'Cormorant Garamond',serif",
@@ -380,7 +380,7 @@ function HomeView(props) {
           textTransform: "uppercase", color: MUTED,
           fontWeight: 400, marginBottom: 36,
         }}>
-          08 August 2025
+          08 August 2026
         </div>
         <div className="fade-up s4">
           <Divider my={0} />
@@ -484,7 +484,7 @@ function Q1View(props) {
           <p style={{ fontSize: 15, color: NAVY, lineHeight: 1.7, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
             Will you be joining us to celebrate<br />
             <strong style={{ fontWeight: 500 }}>Mariam @ 50</strong> on{" "}
-            <strong style={{ fontWeight: 500 }}>08/08/2025</strong>?
+            <strong style={{ fontWeight: 500 }}>08/08/2026</strong>?
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
             <ChoiceCard
@@ -718,7 +718,7 @@ function AsoebItems(props) {
               textTransform: "uppercase",
               color: GOLD, marginBottom: 14, fontWeight: 500,
             }}>
-              Payment Deadline — 15 May 2025
+              Payment Deadline — 15 May 2026
             </div>
             {time.expired ? (
               <p style={{ fontSize: 13, color: MUTED, fontWeight: 300 }}>
@@ -896,7 +896,7 @@ function DoneView(props) {
     asoebi_paid:        { emoji: "👗", title: "Wonderful!",         body: "Thank you! We cannot wait to see you in your beautiful attire." },
     asoebi_no:          { emoji: "💙", title: "See You There!",     body: null },
     asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your Monzo payment and we cannot wait to see you!" },
-    asoebi_items_later: { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Please send your bank transfer by 15 May 2025." },
+    asoebi_items_later: { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Please send your bank transfer by 15 May 2026." },
   };
 
   var m = msgs[type] || msgs.default;
@@ -980,7 +980,7 @@ function DoneView(props) {
                 );
               })}
               <p style={{ fontSize: 11, color: MUTED, marginTop: 10, lineHeight: 1.6 }}>
-                Deadline: 15 May 2025. Use your name as reference.
+                Deadline: 15 May 2026. Use your name as reference.
               </p>
             </div>
           )}
@@ -1029,7 +1029,7 @@ function DoneView(props) {
 
           <Divider my={24} />
           <p style={{ fontSize: 12, color: MUTED + "88", letterSpacing: "0.1em" }}>
-            MARIAM @ 50 · 08/08/2025
+            MARIAM @ 50 · 08/08/2026
           </p>
         </Card>
       </div>
