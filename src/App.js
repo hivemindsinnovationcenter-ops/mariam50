@@ -219,7 +219,7 @@ const Progress = ({ step, total }) => (
 const EventHeader = ({ subtitle }) => (
   <div style={{ textAlign: "center", marginBottom: 32 }}>
     <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: GOLD, marginBottom: 10, fontWeight: 500 }}>
-      08 · 08 · 2025
+      08 · 08 · 2026
     </div>
     <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 38, fontWeight: 400, color: NAVY, lineHeight: 1.15, letterSpacing: "0.02em" }}>
       Mariam <em style={{ fontStyle: "italic", color: GOLD }}>@ 50</em>
@@ -246,7 +246,7 @@ const HomeView = ({ onStart }) => (
         @ 50
       </h2>
       <div className="fade-up s4" style={{ fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: MUTED, fontWeight: 400, marginBottom: 36 }}>
-        08 August 2025
+        08 August 2026
       </div>
       <div className="fade-up s4">
         <Divider my={0} />
@@ -325,7 +325,7 @@ const Q1View = ({ onYes, onNo, onBack }) => {
           <Divider my={24} />
           <p style={{ fontSize: 15, color: NAVY, lineHeight: 1.7, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
             Will you be joining us to celebrate<br />
-            <strong style={{ fontWeight: 500 }}>Mariam @ 50</strong> on <strong style={{ fontWeight: 500 }}>08/08/2025</strong>?
+            <strong style={{ fontWeight: 500 }}>Mariam @ 50</strong> on <strong style={{ fontWeight: 500 }}>08/08/2026</strong>?
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
             <ChoiceCard label="Yes, I will be in attendance" icon="🎉" selected={choice === "yes"} onClick={() => setChoice("yes")} />
@@ -404,7 +404,7 @@ const Q2View = ({ onYes, onYesPaid, onNo, onBack }) => {
 };
 
 // ─── Payment deadline countdown ──────────────────────────────
-const DEADLINE = new Date("2025-05-15T23:59:59");
+const DEADLINE = new Date("2026-05-15T23:59:59");
 
 const useCountdown = () => {
   const calc = () => {
@@ -494,7 +494,7 @@ const AsoebItems = ({ onConfirm, onBack, saving }) => {
           {/* Payment deadline countdown */}
           <div style={{ background: NAVY, borderRadius: 12, padding: "16px 20px", marginBottom: 20, textAlign: "center" }}>
             <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, marginBottom: 12, fontWeight: 500 }}>
-              Payment Deadline — 15 May 2025
+              Payment Deadline — 15 May 2026
             </div>
             {time.expired ? (
               <p style={{ fontSize: 13, color: "#fff", fontWeight: 300 }}>Payment deadline has passed</p>
@@ -606,7 +606,7 @@ const DoneView = ({ type, asoItem }) => {
     asoebi_paid:        { emoji: "👗", title: "Wonderful!",         body: "Thank you! We cannot wait to see you in your beautiful attire." },
     asoebi_no:          { emoji: "💙", title: "See You There!",     body: null },
     asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your Monzo payment and we cannot wait to see you!" },
-    asoebi_items_later: { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Please send your bank transfer by 15 May 2025." },
+    asoebi_items_later: { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Please send your bank transfer by 15 May 2026." },
   };
   const m = msgs[type] || msgs.default;
   const showGift = ATTENDING_TYPES.includes(type);
@@ -657,7 +657,7 @@ const DoneView = ({ type, asoItem }) => {
                 </div>
               ))}
               <p style={{ fontSize: 11, color: "#ffffff66", marginTop: 10, lineHeight: 1.6 }}>
-                Deadline: 15 May 2025. Use your name as reference.
+                Deadline: 15 May 2026. Use your name as reference.
               </p>
             </div>
           )}
@@ -685,7 +685,7 @@ const DoneView = ({ type, asoItem }) => {
           )}
 
           <Divider my={24} />
-          <p style={{ fontSize: 12, color: MUTED + "88", letterSpacing: "0.1em" }}>MARIAM @ 50 · 08/08/2025</p>
+          <p style={{ fontSize: 12, color: MUTED + "88", letterSpacing: "0.1em" }}>MARIAM @ 50 · 08/08/2026</p>
         </Card>
       </div>
     </Page>
