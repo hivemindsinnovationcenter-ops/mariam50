@@ -505,15 +505,8 @@ export default function App() {
     setDoneType("asoebi_no"); setView("done");
   };
   const handleAsoebItem = async (item) => {
-    await save({
-      attending: true,
-      asoebi_choice: "yes",
-      asoebi_item: item,
-      payment_status: "pending"
-    });
-
-    setDoneType("asoebi_items");
-    setView("done");
+    await save({ attending:true, asoebi_choice:"yes", asoebi_item:item, payment_status:"paid" });
+    setDoneType("asoebi_items"); setView("done");
   };
 
   if(view==="home")         return <HomeView onStart={()=>setView("details")}/>;
