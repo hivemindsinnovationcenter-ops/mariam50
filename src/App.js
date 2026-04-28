@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 // ============================================================
 //  CONFIGURATION
 // ============================================================
-var SUPABASE_URL  = "https://inprrcgcabxedtotmviy.supabase.co";
-var SUPABASE_ANON = "sb_publishable_xpRMshJHRZi0GJHuzvSlYw_YBoAGDS0";
-var MONZO_LINK    = "https://monzo.me/oluwafunmibijohnaloba?h=fOv5jA&account_type=personal";
+const SUPABASE_URL  = "https://inprrcgcabxedtotmviy.supabase.co";
+const SUPABASE_ANON = "sb_publishable_xpRMshJHRZi0GJHuzvSlYw_YBoAGDS0";
+const MONZO_LINK    = "https://monzo.me/oluwafunmibijohnaloba?h=fOv5jA&account_type=personal";
 var BANK_NAME    = "Monzo Bank";
 var ACCOUNT_NAME = "Oluwafunmibi Mary John-Aloba";
 var SORT_CODE    = "04-00-03";
