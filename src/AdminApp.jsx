@@ -515,7 +515,7 @@ const Dashboard = ({ token,onLogout }) => {
                           <td style={{padding:"12px 16px",fontWeight:500,color:NAVY,borderBottom:`0.5px solid ${GOLD}15`}}>{g.full_name}</td>
                           <td style={{padding:"12px 16px",color:MUTED,borderBottom:`0.5px solid ${GOLD}15`}}>{g.email||"—"}</td>
                           <td style={{padding:"12px 16px",borderBottom:`0.5px solid ${GOLD}15`}}>
-                            {g.asoebi_item ? <Badge label={itemLabel[g.asoebi_item]} color="gold"/> : "—"}
+                            {g.asoebi_item ? <Badge label={itemLabel[g.asoebi_item]} color="gold"/> : "-"}
                           </td>
                           <td style={{padding:"12px 16px",color:GOLD,fontFamily:"'Cormorant Garamond',serif",fontSize:16,fontWeight:500,borderBottom:`0.5px solid ${GOLD}15`}}>
                             {prices[g.asoebi_item]||"—"}
