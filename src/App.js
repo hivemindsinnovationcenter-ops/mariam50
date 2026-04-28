@@ -718,7 +718,7 @@ const [email, setEmail]       = useState(””);
 const save = async (payload) => {
 setSaving(true);
 try {
-await dbInsert({ full_name: name, email: email || null, …payload });
+await dbInsert({ full_name: name, email: email || null, ...payload });
 } catch (e) {
 console.error(e);
 } finally {
