@@ -942,7 +942,7 @@ function DoneView(props) {
               <span style={{ fontSize: 16 }}>👒</span>
               <p style={{ fontSize: 13, color: NAVY, lineHeight: 1.6, fontWeight: 300 }}>
                 Reminder: cap buyers should{" "}
-                <strong style={{ fontWeight: 600 }}>wear white</strong> on the day.
+                <strong style={{ fontWeight: 600 }}>wear white</strong> on the day. Also kindly add your cap size in the reference.
               </p>
             </div>
           )}
