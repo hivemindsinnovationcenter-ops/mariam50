@@ -1,12 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 
-// ============================================================
-//  ⚙️  CONFIGURATION — update these before deploying
-// ============================================================
 const SUPABASE_URL   = "https://inprrcgcabxedtotmviy.supabase.co";
 const SUPABASE_ANON  = "sb_publishable_xpRMshJHRZi0GJHuzvSlYw_YBoAGDS0";
 const MONZO_LINK     = "https://monzo.me/oluwafunmibijohnaloba?h=fOv5jA&account_type=personal";
-// ============================================================
 
 // ─── Supabase helpers ───────────────────────────────────────
 const hdr = (tok) => ({
@@ -286,7 +282,7 @@ const Progress = ({ step, total }) => (
 const EventHeader = ({ subtitle }) => (
   <div style={{ textAlign: "center", marginBottom: 32 }}>
     <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: GOLD, marginBottom: 10, fontWeight: 500 }}>
-      08 · 08 · 2025
+      08 · 08 · 2026
     </div>
     <h1 style={{
       fontFamily: "'Cormorant Garamond', serif",
@@ -345,7 +341,7 @@ const HomeView = ({ onStart, onAdmin }) => {
           fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase",
           color: MUTED, fontWeight: 400, marginBottom: 36,
         }}>
-          08 August 2025
+          08 August 2026
         </div>
         <div className="fade-up stagger-4">
           <Divider my={0} />
@@ -415,7 +411,7 @@ const Q1View = ({ onYes, onNo }) => {
           <Divider my={24} />
           <p style={{ fontSize: 15, color: NAVY, lineHeight: 1.7, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
             Will you be joining us to celebrate<br />
-            <strong style={{ fontWeight: 500 }}>Mariam @ 50</strong> on <strong style={{ fontWeight: 500 }}>08/08/2025</strong>?
+            <strong style={{ fontWeight: 500 }}>Mariam @ 50</strong> on <strong style={{ fontWeight: 500 }}>08/08/2026</strong>?
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
             <ChoiceCard
@@ -611,7 +607,7 @@ const DoneView = ({ type }) => {
           </p>
           <Divider my={28} />
           <p style={{ fontSize: 12, color: `${MUTED}88`, letterSpacing: "0.1em" }}>
-            MARIAM @ 50 · 08/08/2025
+            MARIAM @ 50 · 08/08/2026
           </p>
         </Card>
       </div>
