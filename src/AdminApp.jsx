@@ -15,6 +15,20 @@ async function dbFetch(tok) {
   return r.json();
 }
 
+async function dbPatch(id, payload, tok) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/guests?id=eq.${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type":"application/json",
+      "apikey":SUPABASE_ANON,
+      "Authorization":`Bearer ${tok}`,
+      "Prefer":"return=minimal",
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!r.ok) throw new Error(await r.text());
+}
+
 async function authLogin(email, pw) {
   const r = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
     method:"POST",
@@ -47,6 +61,7 @@ const injectStyles = () => {
     body{background:${CREAM2};font-family:'Jost',sans-serif;color:${NAVY}}
     @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    @keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
     .fade-up{animation:fadeUp .5s cubic-bezier(.16,1,.3,1) both}
     .pulsing{animation:pulse 1.4s ease infinite}
     input{font-family:'Jost',sans-serif}
@@ -194,16 +209,65 @@ const LoginView = ({ onLogin }) => {
   );
 };
 
+// ─── Payment status dropdown ─────────────────────────────────
+const PAY_OPTIONS = [
+  { value:"pending", label:"Pending",  bg:"#fef3c7", color:"#92400e" },
+  { value:"paid",    label:"Paid",     bg:"#d1fae5", color:"#065f46" },
+];
+
+const PayStatusDropdown = ({ value, onChange, loading }) => {
+  const current = PAY_OPTIONS.find(o=>o.value===value);
+  return (
+    <div style={{position:"relative",display:"inline-block"}}>
+      <select
+        value={value||""}
+        onChange={e=>onChange(e.target.value)}
+        disabled={loading}
+        style={{
+          appearance:"none",WebkitAppearance:"none",
+          padding:"4px 28px 4px 10px",
+          fontSize:11,fontWeight:500,fontFamily:"'Jost',sans-serif",
+          borderRadius:20,border:`1px solid ${current?current.color+"55":"#e5e7eb"}`,
+          background:current?current.bg:"#f3f4f6",
+          color:current?current.color:MUTED,
+          cursor:loading?"not-allowed":"pointer",
+          outline:"none",letterSpacing:"0.03em",
+          transition:"all .2s",opacity:loading?.6:1,
+        }}
+      >
+        <option value="">— unset —</option>
+        {PAY_OPTIONS.map(o=>(
+          <option key={o.value} value={o.value}>{o.label}</option>
+        ))}
+      </select>
+      {/* chevron */}
+      <div style={{
+        position:"absolute",right:8,top:"50%",transform:"translateY(-50%)",
+        pointerEvents:"none",fontSize:9,color:current?.color||MUTED,
+      }}>▼</div>
+      {loading && (
+        <div style={{
+          position:"absolute",right:8,top:"50%",transform:"translateY(-50%)",
+          width:10,height:10,borderRadius:"50%",
+          border:`1.5px solid ${GOLD}`,borderTopColor:"transparent",
+          animation:"spin .6s linear infinite",
+        }}/>
+      )}
+    </div>
+  );
+};
+
 // ════════════════════════════════════════════════════════════
 //  DASHBOARD
 // ════════════════════════════════════════════════════════════
 const Dashboard = ({ token,onLogout }) => {
-  const [guests,setGuests]   = useState([]);
-  const [loading,setLoading] = useState(true);
-  const [err,setErr]         = useState("");
-  const [filter,setFilter]   = useState("all");
-  const [search,setSearch]   = useState("");
-  const [tab,setTab]         = useState("guests");
+  const [guests,setGuests]     = useState([]);
+  const [loading,setLoading]   = useState(true);
+  const [err,setErr]           = useState("");
+  const [filter,setFilter]     = useState("all");
+  const [search,setSearch]     = useState("");
+  const [tab,setTab]           = useState("guests");
+  const [updating,setUpdating] = useState(null); // tracks which guest id is being updated
 
   const load = useCallback(async () => {
     setLoading(true); setErr("");
@@ -213,6 +277,18 @@ const Dashboard = ({ token,onLogout }) => {
   },[token]);
 
   useEffect(()=>{ load(); },[load]);
+
+  const updatePaymentStatus = async (id, status) => {
+    setUpdating(id);
+    try {
+      await dbPatch(id, { payment_status: status }, token);
+      setGuests(prev => prev.map(g => g.id===id ? {...g, payment_status:status} : g));
+    } catch(e) {
+      setErr("Failed to update: " + e.message);
+    } finally {
+      setUpdating(null);
+    }
+  };
 
   // Derived stats
   const total       = guests.length;
@@ -392,7 +468,11 @@ const Dashboard = ({ token,onLogout }) => {
                             {itemLabel[g.asoebi_item]||"—"}
                           </td>
                           <td style={{padding:"12px 16px",borderBottom:`0.5px solid ${GOLD}15`}}>
-                            {g.payment_status ? <Badge label={g.payment_status} color={payColor(g.payment_status)}/> : "—"}
+                            <PayStatusDropdown
+                              value={g.payment_status}
+                              loading={updating===g.id}
+                              onChange={status=>updatePaymentStatus(g.id,status)}
+                            />
                           </td>
                           <td style={{padding:"12px 16px",color:MUTED,fontSize:12,borderBottom:`0.5px solid ${GOLD}15`,whiteSpace:"nowrap"}}>
                             {g.created_at ? new Date(g.created_at).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}) : "—"}
@@ -441,7 +521,11 @@ const Dashboard = ({ token,onLogout }) => {
                             {prices[g.asoebi_item]||"—"}
                           </td>
                           <td style={{padding:"12px 16px",borderBottom:`0.5px solid ${GOLD}15`}}>
-                            <Badge label={g.payment_status||"—"} color={payColor(g.payment_status)}/>
+                            <PayStatusDropdown
+                              value={g.payment_status}
+                              loading={updating===g.id}
+                              onChange={status=>updatePaymentStatus(g.id,status)}
+                            />
                           </td>
                           <td style={{padding:"12px 16px",color:MUTED,fontSize:12,borderBottom:`0.5px solid ${GOLD}15`}}>
                             {g.created_at ? new Date(g.created_at).toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}) : "—"}
