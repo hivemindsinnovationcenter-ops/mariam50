@@ -154,7 +154,7 @@ const Progress = ({ step,total }) => (
 const EventHeader = ({ subtitle }) => (
   <div style={{textAlign:"center",marginBottom:32}}>
     <div style={{fontSize:11,letterSpacing:"0.25em",textTransform:"uppercase",color:GOLD,marginBottom:10,fontWeight:500}}>
-      08 · 08 · 2025
+      08 · 08 · 2026
     </div>
     <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:38,fontWeight:400,color:NAVY,lineHeight:1.15}}>
       Mariam <em style={{fontStyle:"italic",color:GOLD}}>@ 50</em>
@@ -172,7 +172,7 @@ const HomeView = ({ onStart }) => (
       <div className="fade-up s2"><Ornament size={80} color={`${GOLD}cc`}/></div>
       <h1 className="fade-up s3" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(52px,12vw,88px)",fontWeight:300,color:NAVY,lineHeight:1.0,margin:"24px 0 8px"}}>Mariam</h1>
       <h2 className="fade-up s3" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(28px,7vw,48px)",fontWeight:400,fontStyle:"italic",color:GOLD,marginBottom:8}}>@ 50</h2>
-      <div className="fade-up s4" style={{fontSize:12,letterSpacing:"0.2em",textTransform:"uppercase",color:MUTED,marginBottom:36}}>08 August 2025</div>
+      <div className="fade-up s4" style={{fontSize:12,letterSpacing:"0.2em",textTransform:"uppercase",color:MUTED,marginBottom:36}}>08 August 2026</div>
       <div className="fade-up s4"><Divider my={0}/></div>
       <p className="fade-up s5" style={{fontSize:14,color:MUTED,fontWeight:300,lineHeight:1.8,margin:"28px 0 36px"}}>Please click below to RSVP</p>
       <div className="fade-up s6">
@@ -215,7 +215,7 @@ const Q1View = ({ onYes,onNo,onBack }) => {
           <Divider my={24}/>
           <p style={{fontSize:15,color:NAVY,lineHeight:1.7,textAlign:"center",marginBottom:28,fontWeight:300}}>
             Will you be joining us to celebrate<br/>
-            <strong style={{fontWeight:500}}>Mariam @ 50</strong> on <strong style={{fontWeight:500}}>08/08/2025</strong>?
+            <strong style={{fontWeight:500}}>Mariam @ 50</strong> on <strong style={{fontWeight:500}}>08/08/2026</strong>?
           </p>
           <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:28}}>
             <ChoiceCard label="Yes, I will be in attendance" icon="🎉" selected={choice==="yes"} onClick={()=>setChoice("yes")}/>
@@ -381,7 +381,7 @@ const DoneView = ({ type }) => {
           <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:400,color:NAVY,margin:"20px 0 12px"}}>{m.title}</h2>
           <p style={{fontSize:14,color:MUTED,lineHeight:1.8,fontWeight:300,whiteSpace:"pre-line"}}>{m.body}</p>
           <Divider my={28}/>
-          <p style={{fontSize:12,color:`${MUTED}88`,letterSpacing:"0.1em"}}>MARIAM @ 50 · 08/08/2025</p>
+          <p style={{fontSize:12,color:`${MUTED}88`,letterSpacing:"0.1em"}}>MARIAM @ 50 · 08/08/2026</p>
         </Card>
       </div>
     </Page>
