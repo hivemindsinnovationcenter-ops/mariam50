@@ -403,6 +403,35 @@ const Q2View = ({ onYes, onYesPaid, onNo, onBack }) => {
   );
 };
 
+// ─── Payment deadline countdown ──────────────────────────────
+const DEADLINE = new Date("2025-05-15T23:59:59");
+
+const useCountdown = () => {
+  const calc = () => {
+    const diff = DEADLINE - new Date();
+    if (diff <= 0) return { days: 0, hours: 0, mins: 0, secs: 0, expired: true };
+    return {
+      days:    Math.floor(diff / 86400000),
+      hours:   Math.floor((diff % 86400000) / 3600000),
+      mins:    Math.floor((diff % 3600000)  / 60000),
+      secs:    Math.floor((diff % 60000)    / 1000),
+      expired: false,
+    };
+  };
+  const [time, setTime] = useState(calc);
+  useEffect(() => {
+    const t = setInterval(() => setTime(calc()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  return time;
+};
+
+// ─── Bank details — update with your real details ────────────
+const BANK_NAME    = "Your Bank Name";
+const ACCOUNT_NAME = "Your Name";
+const SORT_CODE    = "00-00-00";
+const ACCOUNT_NO   = "00000000";
+
 const ITEMS = [
   { key: "asoebi_gele", label: "Asoebi + Gele", price: "£150" },
   { key: "gele",        label: "Gele",          price: "£30"  },
@@ -411,7 +440,20 @@ const ITEMS = [
 ];
 
 const AsoebItems = ({ onConfirm, onBack, saving }) => {
-  const [item, setItem] = useState(null);
+  const [item, setItem]         = useState(null);
+  const [payMethod, setPayMethod] = useState(null);
+  const time = useCountdown();
+
+  const isCap = item === "cap";
+
+  const TimeBox = ({ value, label }) => (
+    <div style={{ textAlign: "center", minWidth: 52 }}>
+      <div style={{ fontSize: 28, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: NAVY, lineHeight: 1 }}>
+        {String(value).padStart(2, "0")}
+      </div>
+      <div style={{ fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: MUTED, marginTop: 4 }}>{label}</div>
+    </div>
+  );
 
   return (
     <Page>
@@ -423,38 +465,127 @@ const AsoebItems = ({ onConfirm, onBack, saving }) => {
             <p style={{ fontSize: 13, color: MUTED, fontWeight: 300 }}>Choose your item below</p>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+          {/* Item selection */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
             {ITEMS.map(it => (
               <ChoiceCard
                 key={it.key}
                 label={it.label}
                 sublabel={it.price}
                 selected={item === it.key}
-                onClick={() => setItem(it.key)}
+                onClick={() => { setItem(it.key); setPayMethod(null); }}
               />
             ))}
           </div>
 
+          {/* Cap note */}
+          {isCap && (
+            <div style={{ background: "#fff8e1", border: "0.5px solid #f59e0b88", borderRadius: 10, padding: "12px 16px", marginBottom: 16, display: "flex", gap: 10, alignItems: "flex-start" }}>
+              <span style={{ fontSize: 16 }}>👒</span>
+              <p style={{ fontSize: 13, color: NAVY, lineHeight: 1.6, fontWeight: 300 }}>
+                Please note: cap buyers should <strong style={{ fontWeight: 600 }}>wear white</strong> on the day.
+                Also add your cap size in the reference when paying. Thank you!
+              </p>
+            </div>
+          )}
+
           <Divider my={16} />
 
-          <div style={{ background: GOLD + "08", border: "0.5px solid " + GOLD + "44", borderRadius: 12, padding: "20px 24px", marginBottom: 24 }}>
-            <p style={{ fontSize: 13, color: NAVY, lineHeight: 1.7, fontWeight: 300, marginBottom: 14 }}>
-              If you would like to pay now, please use the Monzo link below.
-              Please note, if you picked Cap, please add your cap size in the reference section of the Monzo payment. Thank you!
-            </p>
-            <a
-              href={MONZO_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "10px 20px", transition: "all .2s", fontFamily: "'Jost',sans-serif" }}
-            >
-              Pay via Monzo →
-            </a>
+          {/* Payment deadline countdown */}
+          <div style={{ background: NAVY, borderRadius: 12, padding: "16px 20px", marginBottom: 20, textAlign: "center" }}>
+            <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, marginBottom: 12, fontWeight: 500 }}>
+              Payment Deadline — 15 May 2025
+            </div>
+            {time.expired ? (
+              <p style={{ fontSize: 13, color: "#fff", fontWeight: 300 }}>Payment deadline has passed</p>
+            ) : (
+              <div style={{ display: "flex", justifyContent: "center", gap: 4, alignItems: "center" }}>
+                <TimeBox value={time.days}  label="Days"  />
+                <div style={{ fontSize: 22, color: GOLD, marginBottom: 8, fontWeight: 300 }}>:</div>
+                <TimeBox value={time.hours} label="Hours" />
+                <div style={{ fontSize: 22, color: GOLD, marginBottom: 8, fontWeight: 300 }}>:</div>
+                <TimeBox value={time.mins}  label="Mins"  />
+                <div style={{ fontSize: 22, color: GOLD, marginBottom: 8, fontWeight: 300 }}>:</div>
+                <TimeBox value={time.secs}  label="Secs"  />
+              </div>
+            )}
+          </div>
+
+          {/* Pay Now */}
+          <div
+            onClick={() => setPayMethod("now")}
+            style={{
+              border: (payMethod === "now" ? "1.5px" : "0.5px") + " solid " + (payMethod === "now" ? GOLD : NAVY + "22"),
+              borderRadius: 12, padding: "18px 20px", marginBottom: 10,
+              background: payMethod === "now" ? GOLD + "0e" : "#fff",
+              cursor: "pointer", transition: "all .25s",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "now" ? 14 : 0 }}>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Now</div>
+                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>via Monzo link</div>
+              </div>
+              <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "now" ? GOLD : NAVY + "33"), background: payMethod === "now" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {payMethod === "now" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
+              </div>
+            </div>
+            {payMethod === "now" && (
+              <a
+                href={MONZO_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "10px 20px", fontFamily: "'Jost',sans-serif" }}
+              >
+                Open Monzo →
+              </a>
+            )}
+          </div>
+
+          {/* Pay Later */}
+          <div
+            onClick={() => setPayMethod("later")}
+            style={{
+              border: (payMethod === "later" ? "1.5px" : "0.5px") + " solid " + (payMethod === "later" ? GOLD : NAVY + "22"),
+              borderRadius: 12, padding: "18px 20px", marginBottom: 20,
+              background: payMethod === "later" ? GOLD + "0e" : "#fff",
+              cursor: "pointer", transition: "all .25s",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "later" ? 14 : 0 }}>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Later</div>
+                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>bank transfer — must be by 15 May</div>
+              </div>
+              <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "later" ? GOLD : NAVY + "33"), background: payMethod === "later" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {payMethod === "later" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
+              </div>
+            </div>
+            {payMethod === "later" && (
+              <div style={{ background: "#fff", border: "0.5px solid " + GOLD + "33", borderRadius: 8, padding: "14px 16px" }}>
+                <div style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 10 }}>Bank Details</div>
+                {[
+                  ["Bank",           BANK_NAME   ],
+                  ["Account Name",   ACCOUNT_NAME],
+                  ["Sort Code",      SORT_CODE   ],
+                  ["Account Number", ACCOUNT_NO  ],
+                ].map(([k, v]) => (
+                  <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "0.5px solid " + GOLD + "18" }}>
+                    <span style={{ fontSize: 12, color: MUTED }}>{k}</span>
+                    <span style={{ fontSize: 12, fontWeight: 500, color: NAVY }}>{v}</span>
+                  </div>
+                ))}
+                <p style={{ fontSize: 11, color: MUTED, marginTop: 10, lineHeight: 1.6 }}>
+                  Please use your name as the payment reference.
+                  {isCap ? " Also include your cap size." : ""}
+                </p>
+              </div>
+            )}
           </div>
 
           <div style={{ display: "flex", gap: 12 }}>
             <Btn variant="ghost" onClick={onBack} style={{ flex: 1 }}>Back</Btn>
-            <Btn disabled={!item || saving} onClick={() => onConfirm(item)} style={{ flex: 2 }}>
+            <Btn disabled={!item || !payMethod || saving} onClick={() => onConfirm(item, payMethod)} style={{ flex: 2 }}>
               {saving ? "Saving..." : "Confirm Selection"}
             </Btn>
           </div>
@@ -464,16 +595,18 @@ const AsoebItems = ({ onConfirm, onBack, saving }) => {
   );
 };
 
-const ATTENDING_TYPES = ["default", "asoebi_paid", "asoebi_no", "asoebi_items"];
+const ATTENDING_TYPES = ["default", "asoebi_paid", "asoebi_no", "asoebi_items_now", "asoebi_items_later"];
 
-const DoneView = ({ type }) => {
+const DoneView = ({ type, asoItem }) => {
+  const isCap = asoItem === "cap";
   const msgs = {
-    default:       { emoji: "✨", title: "Thank You",          body: "Your response has been received. We look forward to celebrating with you!" },
-    not_attending: { emoji: "🌸", title: "Thank You",          body: "Thank you for your response. You will be missed!" },
-    contribute:    { emoji: "💛", title: "Thank You So Much",  body: "Your generosity means the world. Thank you for contributing!" },
-    asoebi_paid:   { emoji: "👗", title: "Wonderful!",         body: "Thank you! We cannot wait to see you in your beautiful attire." },
-    asoebi_no:     { emoji: "💙", title: "See You There!",     body: "Thank you. We cannot wait to see you. Dress code: Blue and Gold." },
-    asoebi_items:  { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection has been saved. We cannot wait to see you in your beautiful attire!" },
+    default:            { emoji: "✨", title: "Thank You",          body: "Your response has been received. We look forward to celebrating with you!" },
+    not_attending:      { emoji: "🌸", title: "Thank You",          body: "Thank you for your response. You will be missed!" },
+    contribute:         { emoji: "💛", title: "Thank You So Much",  body: "Your generosity means the world. Thank you for contributing!" },
+    asoebi_paid:        { emoji: "👗", title: "Wonderful!",         body: "Thank you! We cannot wait to see you in your beautiful attire." },
+    asoebi_no:          { emoji: "💙", title: "See You There!",     body: null },
+    asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your Monzo payment and we cannot wait to see you!" },
+    asoebi_items_later: { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Please send your bank transfer by 15 May 2025." },
   };
   const m = msgs[type] || msgs.default;
   const showGift = ATTENDING_TYPES.includes(type);
@@ -485,14 +618,56 @@ const DoneView = ({ type }) => {
           <div style={{ fontSize: 44, marginBottom: 20 }}>{m.emoji}</div>
           <Ornament size={60} color={GOLD + "88"} />
           <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 32, fontWeight: 400, color: NAVY, margin: "20px 0 12px" }}>{m.title}</h2>
-          <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.8, fontWeight: 300 }}>{m.body}</p>
+
+          {/* Dress code for no asoebi */}
+          {type === "asoebi_no" ? (
+            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.8, fontWeight: 300 }}>
+              Thank you. We cannot wait to see you.{"\n"}Dress code:{" "}
+              <strong style={{ fontWeight: 700, color: NAVY }}>Navy Blue</strong>
+              {" & "}
+              <strong style={{ fontWeight: 700, color: GOLD }}>Gold</strong>
+            </p>
+          ) : (
+            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.8, fontWeight: 300 }}>{m.body}</p>
+          )}
+
+          {/* Cap reminder on done screen */}
+          {isCap && (type === "asoebi_items_now" || type === "asoebi_items_later") && (
+            <div style={{ background: "#fff8e1", border: "0.5px solid #f59e0b88", borderRadius: 10, padding: "12px 16px", marginTop: 16, textAlign: "left", display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 16 }}>👒</span>
+              <p style={{ fontSize: 13, color: NAVY, lineHeight: 1.6, fontWeight: 300 }}>
+                Reminder: cap buyers should <strong style={{ fontWeight: 600 }}>wear white</strong> on the day.
+              </p>
+            </div>
+          )}
+
+          {/* Pay later bank details reminder */}
+          {type === "asoebi_items_later" && (
+            <div style={{ background: NAVY, borderRadius: 12, padding: "16px 20px", marginTop: 16, textAlign: "left" }}>
+              <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 10 }}>Bank Details</div>
+              {[
+                ["Bank",           BANK_NAME   ],
+                ["Account Name",   ACCOUNT_NAME],
+                ["Sort Code",      SORT_CODE   ],
+                ["Account Number", ACCOUNT_NO  ],
+              ].map(([k, v]) => (
+                <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "0.5px solid #ffffff18" }}>
+                  <span style={{ fontSize: 12, color: "#ffffff88" }}>{k}</span>
+                  <span style={{ fontSize: 12, fontWeight: 500, color: "#fff" }}>{v}</span>
+                </div>
+              ))}
+              <p style={{ fontSize: 11, color: "#ffffff66", marginTop: 10, lineHeight: 1.6 }}>
+                Deadline: 15 May 2025. Use your name as reference.
+              </p>
+            </div>
+          )}
 
           {showGift && (
             <>
               <Divider my={24} />
               <div style={{ background: GOLD + "08", border: "0.5px solid " + GOLD + "44", borderRadius: 12, padding: "20px 24px", textAlign: "left" }}>
                 <div style={{ fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 8 }}>
-                  🎁 Would you like to give a gift?
+                  Would you like to give a gift?
                 </div>
                 <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.7, fontWeight: 300, marginBottom: 14 }}>
                   If you would like to bless Mariam with a monetary gift, you can send it via Monzo. Your generosity is so appreciated!
@@ -517,6 +692,7 @@ const DoneView = ({ type }) => {
   );
 };
 
+
 // ---- Main App ----
 
 export default function App() {
@@ -524,6 +700,7 @@ export default function App() {
 
   const [view, setView]         = useState("home");
   const [doneType, setDoneType] = useState("default");
+  const [asoItem, setAsoItem]   = useState(null);
   const [saving, setSaving]     = useState(false);
   const [name, setName]         = useState("");
   const [email, setEmail]       = useState("");
@@ -564,9 +741,10 @@ export default function App() {
     setView("done");
   };
 
-  const handleAsoebItem = async (item) => {
+  const handleAsoebItem = async (item, payMethod) => {
     await save({ attending: true, asoebi_choice: "yes", asoebi_item: item, payment_status: "pending" });
-    setDoneType("asoebi_items");
+    setAsoItem(item);
+    setDoneType(payMethod === "now" ? "asoebi_items_now" : "asoebi_items_later");
     setView("done");
   };
 
@@ -576,6 +754,6 @@ export default function App() {
   if (view === "contribution") return <ContributionView onYes={handleContribYes} onNo={handleContribNo} onBack={() => setView("q1")} saving={saving} />;
   if (view === "q2")           return <Q2View onYes={() => setView("asoebi_items")} onYesPaid={handleQ2YesPaid} onNo={handleQ2No} onBack={() => setView("q1")} />;
   if (view === "asoebi_items") return <AsoebItems onConfirm={handleAsoebItem} onBack={() => setView("q2")} saving={saving} />;
-  if (view === "done")         return <DoneView type={doneType} />;
+  if (view === "done")         return <DoneView type={doneType} asoItem={asoItem} />;
   return null;
 }
