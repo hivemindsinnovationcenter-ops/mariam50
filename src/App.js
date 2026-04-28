@@ -524,7 +524,7 @@ const AsoebItems = ({ onConfirm, onBack, saving }) => {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "now" ? 14 : 0 }}>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Now</div>
-                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>via Monzo link</div>
+                <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>via link</div>
               </div>
               <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "now" ? GOLD : NAVY + "33"), background: payMethod === "now" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 {payMethod === "now" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
@@ -537,7 +537,7 @@ const AsoebItems = ({ onConfirm, onBack, saving }) => {
                 rel="noopener noreferrer"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "10px 20px", fontFamily: "'Jost',sans-serif" }}
               >
-                Open Monzo →
+                Open payment link →
               </a>
             )}
           </div>
