@@ -39,10 +39,10 @@ var CREAM = "#FDFBF5";
 var CREAM2 = "#F4EFE2";
 var MUTED = "#8A8070";
 
-var BANK_NAME    = "Your Bank Name";
-var ACCOUNT_NAME = "Your Name";
-var SORT_CODE    = "00-00-00";
-var ACCOUNT_NO   = "00000000";
+var BANK_NAME    = "Monzo Bank";
+var ACCOUNT_NAME = "Oluwafunmibi Mary John-Aloba";
+var SORT_CODE    = "04-00-03";
+var ACCOUNT_NO   = "06775165";
 
 var DEADLINE = new Date("2026-05-15T23:59:59");
 
