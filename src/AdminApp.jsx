@@ -3,8 +3,8 @@ import { useState, useEffect, useCallback } from "react";
 // ============================================================
 //  ⚙️  CONFIGURATION — must match mariam-rsvp.jsx
 // ============================================================
-const SUPABASE_URL   = "https://inprrcgcabxedtotmviy.supabase.co";
-const SUPABASE_ANON  = "sb_publishable_xpRMshJHRZi0GJHuzvSlYw_YBoAGDS0";
+const SUPABASE_URL = "https://inprrcgcabxedtotmviy.supabase.co";
+const SUPABASE_ANON = "sb_publishable_xpRMshJHRZi0GJHuzvSlYw_YBoAGDS0";
 // ============================================================
 
 async function dbFetch(tok) {
