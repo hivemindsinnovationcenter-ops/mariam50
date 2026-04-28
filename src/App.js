@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 const SUPABASE_URL   = "https://inprrcgcabxedtotmviy.supabase.co";
 const SUPABASE_ANON  = "sb_publishable_xpRMshJHRZi0GJHuzvSlYw_YBoAGDS0";
 const MONZO_LINK     = "https://monzo.me/oluwafunmibijohnaloba?h=fOv5jA&account_type=personal";
-
+// ============================================================
 
 async function dbInsert(payload) {
   const r = await fetch(`${SUPABASE_URL}/rest/v1/guests`, {
@@ -15,6 +15,16 @@ async function dbInsert(payload) {
     body: JSON.stringify(payload),
   });
   if (!r.ok) throw new Error(await r.text());
+}
+
+async function dbCheckEmail(email) {
+  const r = await fetch(
+    `${SUPABASE_URL}/rest/v1/guests?email=eq.${encodeURIComponent(email)}&select=id`,
+    { headers: { "apikey":SUPABASE_ANON } }
+  );
+  if (!r.ok) return false;
+  const d = await r.json();
+  return d.length > 0; // true = already exists
 }
 
 const NAVY  = "#0C1929";
@@ -183,8 +193,31 @@ const HomeView = ({ onStart }) => (
 );
 
 const DetailsView = ({ onNext,onBack }) => {
-  const [name,setName] = useState("");
-  const [email,setEmail] = useState("");
+  const [name,setName]       = useState("");
+  const [email,setEmail]     = useState("");
+  const [checking,setChecking] = useState(false);
+  const [dupErr,setDupErr]   = useState("");
+
+  const isValid = name.trim() && email.trim() && email.includes("@");
+
+  const handleContinue = async () => {
+    setDupErr("");
+    setChecking(true);
+    try {
+      const exists = await dbCheckEmail(email.trim().toLowerCase());
+      if (exists) {
+        setDupErr("It looks like you have already RSVP'd with this email address. Please get in touch if you need to make a change.");
+        return;
+      }
+      onNext(name.trim(), email.trim().toLowerCase());
+    } catch(e) {
+      // If check fails, let them through — don't block on a network error
+      onNext(name.trim(), email.trim().toLowerCase());
+    } finally {
+      setChecking(false);
+    }
+  };
+
   return (
     <Page>
       <div style={{padding:"24px 16px",width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
@@ -193,10 +226,21 @@ const DetailsView = ({ onNext,onBack }) => {
           <EventHeader subtitle="Let's start with your details"/>
           <Divider my={24}/>
           <Input label="Full Name" value={name} onChange={setName} placeholder="Your full name" required/>
-          <Input label="Email Address" value={email} onChange={setEmail} type="email" placeholder="your@email.com"/>
+          <Input label="Email Address" value={email} onChange={v=>{ setEmail(v); setDupErr(""); }} type="email" placeholder="your@email.com" required/>
+          {dupErr && (
+            <div style={{
+              background:`${GOLD}0e`,border:`0.5px solid ${GOLD}66`,
+              borderRadius:10,padding:"12px 16px",marginBottom:16,
+              fontSize:13,color:NAVY,lineHeight:1.6,fontWeight:300,
+            }}>
+              {dupErr}
+            </div>
+          )}
           <div style={{display:"flex",gap:12,marginTop:8}}>
             <Btn variant="ghost" onClick={onBack} style={{flex:1}}>Back</Btn>
-            <Btn onClick={()=>onNext(name.trim(),email.trim())} disabled={!name.trim()} style={{flex:2}}>Continue</Btn>
+            <Btn onClick={handleContinue} disabled={!isValid||checking} style={{flex:2}}>
+              {checking?"Checking…":"Continue"}
+            </Btn>
           </div>
         </Card>
       </div>
@@ -362,6 +406,8 @@ const AsoebItems = ({ onConfirm,onBack,saving }) => {
   );
 };
 
+const ATTENDING_TYPES = ["default","asoebi_paid","asoebi_no","asoebi_items"];
+
 const DoneView = ({ type }) => {
   const msgs = {
     default:      { emoji:"✨", title:"Thank You",         body:"Your response has been received. We look forward to celebrating with you!" },
@@ -372,6 +418,7 @@ const DoneView = ({ type }) => {
     asoebi_items: { emoji:"⭐️", title:"You're Confirmed!", body:"Your payment and selection are saved.\nWe cannot wait to see you in your beautiful attire!" },
   };
   const m = msgs[type] || msgs.default;
+  const showGift = ATTENDING_TYPES.includes(type);
   return (
     <Page>
       <div style={{padding:"24px 16px",width:"100%",display:"flex",flexDirection:"column",alignItems:"center"}}>
@@ -380,7 +427,40 @@ const DoneView = ({ type }) => {
           <Ornament size={60} color={`${GOLD}88`}/>
           <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:400,color:NAVY,margin:"20px 0 12px"}}>{m.title}</h2>
           <p style={{fontSize:14,color:MUTED,lineHeight:1.8,fontWeight:300,whiteSpace:"pre-line"}}>{m.body}</p>
-          <Divider my={28}/>
+
+          {showGift && (
+            <>
+              <Divider my={24}/>
+              <div style={{
+                background:`${GOLD}08`,
+                border:`0.5px solid ${GOLD}44`,
+                borderRadius:12,padding:"20px 24px",
+                textAlign:"left",
+              }}>
+                <div style={{fontSize:12,letterSpacing:"0.15em",textTransform:"uppercase",color:GOLD,fontWeight:500,marginBottom:8}}>
+                  🎁 Would you like to give a gift?
+                </div>
+                <p style={{fontSize:13,color:MUTED,lineHeight:1.7,fontWeight:300,marginBottom:14}}>
+                  If you would like to bless Mariam with a monetary gift, you can send it via Monzo using the link below. Your generosity is so appreciated!
+                </p>
+                <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer"
+                  style={{
+                    display:"inline-flex",alignItems:"center",gap:8,
+                    fontSize:12,letterSpacing:"0.12em",textTransform:"uppercase",
+                    color:GOLD,fontWeight:500,textDecoration:"none",
+                    border:`0.5px solid ${GOLD}66`,borderRadius:4,
+                    padding:"10px 20px",transition:"all .2s",fontFamily:"'Jost',sans-serif",
+                  }}
+                  onMouseEnter={e=>{ e.currentTarget.style.background=`${GOLD}15`; }}
+                  onMouseLeave={e=>{ e.currentTarget.style.background="transparent"; }}
+                >
+                  Send a Gift via Monzo →
+                </a>
+              </div>
+            </>
+          )}
+
+          <Divider my={24}/>
           <p style={{fontSize:12,color:`${MUTED}88`,letterSpacing:"0.1em"}}>MARIAM @ 50 · 08/08/2026</p>
         </Card>
       </div>
