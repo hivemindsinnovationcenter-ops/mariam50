@@ -160,7 +160,7 @@ function Page(props) {
 function Card(props) {
   return (
     <div className={props.className || ""} style={Object.assign({
-      background: "#fff",
+      background: "#FAF8F2",
       border: "0.5px solid " + GOLD + "44",
       borderTop: "3px solid " + NAVY,
       borderRadius: 16,
@@ -244,7 +244,7 @@ function ChoiceCard(props) {
         border: (selected ? "1.5px" : "0.5px") + " solid " + (selected ? GOLD : hov ? GOLD + "88" : NAVY + "22"),
         borderLeft: selected ? "4px solid " + GOLD : (hov ? "4px solid " + GOLD + "55" : "4px solid transparent"),
         borderRadius: 12, cursor: "pointer",
-        background: selected ? NAVY + "06" : hov ? GOLD + "05" : "#fff",
+        background: selected ? NAVY + "06" : hov ? GOLD + "05" : "#FAF8F2",
         transition: "all .25s ease", display: "flex", alignItems: "center", gap: 16,
       }}
     >
@@ -260,7 +260,7 @@ function ChoiceCard(props) {
         display: "flex", alignItems: "center", justifyContent: "center",
         transition: "all .2s", flexShrink: 0,
       }}>
-        {selected && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
+        {selected && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#FAF8F2" }} />}
       </div>
     </div>
   );
@@ -277,7 +277,7 @@ function Input(props) {
         value={props.value}
         onChange={function(e) { props.onChange(e.target.value); }}
         placeholder={props.placeholder}
-        style={{ width: "100%", padding: "14px 17px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 15, background: "#fff", color: NAVY, outline: "none", fontFamily: "'Jost',sans-serif", transition: "all .2s" }}
+        style={{ width: "100%", padding: "14px 17px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 15, background: "#FAF8F2", color: NAVY, outline: "none", fontFamily: "'Jost',sans-serif", transition: "all .2s" }}
         onFocus={function(e) { e.target.style.borderColor = NAVY; e.target.style.boxShadow = "0 0 0 3px " + NAVY + "12"; }}
         onBlur={function(e)  { e.target.style.borderColor = NAVY + "33"; e.target.style.boxShadow = "none"; }}
       />
@@ -398,7 +398,7 @@ function PaySection(props) {
         border: (payMethod === "now" ? "1.5px" : "0.5px") + " solid " + (payMethod === "now" ? GOLD : NAVY + "22"),
         borderLeft: payMethod === "now" ? "4px solid " + GOLD : "4px solid transparent",
         borderRadius: 12, padding: "17px 18px", marginBottom: 9,
-        background: payMethod === "now" ? NAVY + "04" : "#fff", cursor: "pointer", transition: "all .25s",
+        background: payMethod === "now" ? NAVY + "04" : "#FAF8F2", cursor: "pointer", transition: "all .25s",
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "now" ? 14 : 0 }}>
           <div>
@@ -406,7 +406,7 @@ function PaySection(props) {
             <div style={{ fontSize: 12, color: MUTED, marginTop: 3 }}>via link</div>
           </div>
           <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "now" ? GOLD : NAVY + "33"), background: payMethod === "now" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {payMethod === "now" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
+            {payMethod === "now" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#FAF8F2" }} />}
           </div>
         </div>
         {payMethod === "now" && (
@@ -421,7 +421,7 @@ function PaySection(props) {
         border: (payMethod === "later" ? "1.5px" : "0.5px") + " solid " + (payMethod === "later" ? NAVY + "66" : NAVY + "22"),
         borderLeft: payMethod === "later" ? "4px solid " + NAVY : "4px solid transparent",
         borderRadius: 12, padding: "17px 18px", marginBottom: 16,
-        background: payMethod === "later" ? NAVY + "04" : "#fff", cursor: "pointer", transition: "all .25s",
+        background: payMethod === "later" ? NAVY + "04" : "#FAF8F2", cursor: "pointer", transition: "all .25s",
       }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "later" ? 14 : 0 }}>
           <div>
@@ -429,7 +429,7 @@ function PaySection(props) {
             <div style={{ fontSize: 12, color: MUTED, marginTop: 3 }}>bank transfer &mdash; by 15 May</div>
           </div>
           <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "later" ? NAVY : NAVY + "33"), background: payMethod === "later" ? NAVY : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {payMethod === "later" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
+            {payMethod === "later" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#FAF8F2" }} />}
           </div>
         </div>
         {payMethod === "later" && (
@@ -776,7 +776,7 @@ function PersonCard(props) {
               value={props.name}
               onChange={function(e) { props.onNameChange(e.target.value); }}
               placeholder="Guest full name"
-              style={{ flex: 1, padding: "9px 13px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 14, color: NAVY, background: "#fff", fontFamily: "'Jost',sans-serif", outline: "none" }}
+              style={{ flex: 1, padding: "9px 13px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }}
             />
             <button onClick={props.onRemove} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 20, color: MUTED, padding: "0 4px", lineHeight: 1, flexShrink: 0 }}>
               x
@@ -792,7 +792,7 @@ function PersonCard(props) {
         <select
           value={props.asoItem || ""}
           onChange={function(e) { props.onItemChange(e.target.value); }}
-          style={{ width: "100%", marginTop: 12, padding: "10px 13px", border: "0.5px solid " + GOLD + "55", borderRadius: 8, fontSize: 14, color: NAVY, background: "#fff", fontFamily: "'Jost',sans-serif", outline: "none" }}
+          style={{ width: "100%", marginTop: 12, padding: "10px 13px", border: "0.5px solid " + GOLD + "55", borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }}
         >
           <option value="">Select an item...</option>
           {ITEMS.map(function(it) {
