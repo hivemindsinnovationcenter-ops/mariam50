@@ -94,10 +94,21 @@ function injectStyles() {
   document.head.appendChild(link);
   const s = document.createElement("style");
   s.id = "m50-styles";
+  // Tiny diamond trellis SVG pattern at ~4% opacity for a subtle luxury texture
+  const pattern = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 3 L45 24 L24 45 L3 24 Z' fill='none' stroke='rgba(12%2C25%2C41%2C0.055)' stroke-width='0.6'/%3E%3C/svg%3E";
+
   s.textContent =
     "*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}" +
     "html,body,#root{min-height:100vh}" +
-    "body{background:" + CREAM + ";font-family:'Jost',sans-serif;color:" + NAVY + "}" +
+    "body{" +
+      "background-color:" + CREAM + ";" +
+      "background-image:" +
+        "radial-gradient(ellipse 120% 100% at 50% 0%,rgba(191,150,69,0.06) 0%,transparent 55%)," +
+        "radial-gradient(ellipse 100% 80% at 0% 100%,rgba(12,25,41,0.05) 0%,transparent 60%)," +
+        "radial-gradient(ellipse 100% 80% at 100% 100%,rgba(12,25,41,0.04) 0%,transparent 60%)," +
+        "url(\"" + pattern + "\");" +
+      "font-family:'Jost',sans-serif;color:" + NAVY + ";" +
+    "}" +
     "@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}" +
     ".fade-up{animation:fadeUp .7s cubic-bezier(.16,1,.3,1) both}" +
     ".s1{animation-delay:.05s}.s2{animation-delay:.12s}.s3{animation-delay:.20s}" +
@@ -135,8 +146,10 @@ function Divider(props) {
 function Page(props) {
   return (
     <div style={{
-      minHeight: "100vh", background: CREAM,
-      backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%," + GOLD + "12 0%,transparent 70%)",
+      minHeight: "100vh",
+      background: "transparent",
+      backgroundImage:
+        "radial-gradient(ellipse 70% 60% at 50% 40%,rgba(253,251,245,0.95) 0%,transparent 100%)",
       display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
     }}>
       {props.children}
@@ -153,7 +166,7 @@ function Card(props) {
       borderRadius: 16,
       padding: "44px 48px",
       width: "100%", maxWidth: 560,
-      boxShadow: "0 8px 50px " + NAVY + "18, 0 0 0 1px " + GOLD + "14",
+      boxShadow: "0 4px 60px " + NAVY + "10, 0 1px 3px " + NAVY + "08, 0 0 0 1px " + GOLD + "18",
     }, props.style || {})}>
       {props.children}
     </div>
