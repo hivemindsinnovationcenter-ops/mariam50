@@ -697,7 +697,7 @@ function PersonCard(props) {
         )}
       </div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontSize: 12, color: MUTED }}>Asoebi?</span>
+        <span style={{ fontSize: 12, color: MUTED }}>Asoebi/Gele/Cap?</span>
         <AsoToggle value={props.wantsAsoebi} onChange={props.onToggleAsoebi} />
       </div>
       {props.wantsAsoebi && (
