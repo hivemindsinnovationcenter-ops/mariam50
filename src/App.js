@@ -136,9 +136,7 @@ function Page(props) {
   return (
     <div style={{
       minHeight: "100vh", background: CREAM,
-      backgroundImage:
-        "linear-gradient(180deg," + NAVY + " 0px," + NAVY2 + " 80px," + NAVY + "ee 150px,transparent 270px)," +
-        "radial-gradient(ellipse 90% 40% at 50% 100%," + NAVY + "14 0%,transparent 70%)",
+      backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%," + GOLD + "12 0%,transparent 70%)",
       display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
     }}>
       {props.children}
@@ -434,13 +432,13 @@ function HomeView(props) {
         </div>
 
         <div className="fade-up s2"><Ornament size={88} color={GOLD + "cc"} /></div>
-        <h1 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(60px,14vw,96px)", fontWeight: 300, color: CREAM, lineHeight: 1.0, margin: "26px 0 6px" }}>Mariam</h1>
+        <h1 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(60px,14vw,96px)", fontWeight: 300, color: NAVY, lineHeight: 1.0, margin: "26px 0 6px" }}>Mariam</h1>
         <h2 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(32px,8vw,52px)", fontWeight: 400, fontStyle: "italic", color: GOLD, marginBottom: 10 }}>@ 50</h2>
-        <div className="fade-up s4" style={{ fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase", color: CREAM + "99", marginBottom: 36 }}>08 August 2026</div>
+        <div className="fade-up s4" style={{ fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase", color: MUTED, marginBottom: 36 }}>08 August 2026</div>
 
         <div className="fade-up s4"><Divider my={0} /></div>
 
-        <p className="fade-up s5" style={{ fontSize: 16, color: CREAM + "cc", fontWeight: 300, lineHeight: 1.8, margin: "28px 0 36px" }}>
+        <p className="fade-up s5" style={{ fontSize: 16, color: MUTED, fontWeight: 300, lineHeight: 1.8, margin: "28px 0 36px" }}>
           Please click below to RSVP
         </p>
         <div className="fade-up s6">
@@ -450,7 +448,7 @@ function HomeView(props) {
         </div>
 
         <div className="fade-up s6" style={{ marginTop: 48, borderTop: "0.5px solid " + GOLD + "33", paddingTop: 16 }}>
-          <p style={{ fontSize: 12, color: CREAM + "44", letterSpacing: "0.12em" }}>MARIAM @ 50 &middot; 08/08/2026</p>
+          <p style={{ fontSize: 12, color: MUTED + "88", letterSpacing: "0.12em" }}>MARIAM @ 50 &middot; 08/08/2026</p>
         </div>
       </div>
     </Page>
