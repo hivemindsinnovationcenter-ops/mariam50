@@ -714,7 +714,7 @@ function PersonCard(props) {
       )}
       {isCap && props.wantsAsoebi && (
         <div style={{ marginTop: 8, padding: "8px 12px", background: "#fff8e1", borderRadius: 8, fontSize: 12, color: NAVY, lineHeight: 1.5 }}>
-          👒 Wear white on the day. Add cap size in payment reference.
+          👒 Please can all men wear white on the day with their cap. Kindly add cap size in payment reference. Thank you
         </div>
       )}
     </div>
