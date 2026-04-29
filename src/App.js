@@ -809,7 +809,7 @@ function GroupBuildView(props) {
 
           {total > 0 && (
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: GOLD + "0c", border: "0.5px solid " + GOLD + "44", borderRadius: 8, padding: "10px 16px", marginBottom: 14 }}>
-              <span style={{ fontSize: 13, color: NAVY, fontWeight: 500 }}>Total asoebi</span>
+              <span style={{ fontSize: 13, color: NAVY, fontWeight: 500 }}>Total payment due</span>
               <span style={{ fontSize: 18, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: GOLD }}>£{total}</span>
             </div>
           )}
