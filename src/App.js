@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 // ============================================================
 //  CONFIGURATION
 // ============================================================
-const SUPABASE_URL  = "https://inprrcgcabxedtotmviy.supabase.co";
+const SUPABASE_URL  = "https://inprrcgcabxedtotmviy.supabase.co";
 const SUPABASE_ANON = "sb_publishable_xpRMshJHRZi0GJHuzvSlYw_YBoAGDS0";
-const MONZO_LINK    = "https://monzo.me/oluwafunmibijohnaloba?h=fOv5jA&account_type=personal";
-var BANK_NAME    = "Monzo Bank";
+const MONZO_LINK    = "https://monzo.me/oluwafunmibijohnaloba?h=fOv5jA&account_type=personal";
+var BANK_NAME    = "Monzo Bank";
 var ACCOUNT_NAME = "Oluwafunmibi Mary John-Aloba";
-var SORT_CODE    = "04-00-03";
-var ACCOUNT_NO   = "06775165";
-var DEADLINE      = new Date("2026-05-15T23:59:59");
+var SORT_CODE    = "04-00-03";
+var ACCOUNT_NO   = "06775165";
+var DEADLINE      = new Date("2026-05-15T23:59:59");
 // ============================================================
 
 function generateUUID() {
@@ -68,12 +68,13 @@ async function dbInsertMembers(guestId, members) {
 }
 
 // ── Design tokens ──────────────────────────────────────────
-const NAVY  = "#0C1929";
-const GOLD  = "#BF9645";
-const GOLD2 = "#D4AF5A";
-const CREAM = "#FDFBF5";
+const NAVY   = "#0C1929";
+const NAVY2  = "#142236";
+const GOLD   = "#BF9645";
+const GOLD2  = "#D4AF5A";
+const CREAM  = "#FDFBF5";
 const CREAM2 = "#F4EFE2";
-const MUTED = "#8A8070";
+const MUTED  = "#8A8070";
 
 const ITEMS = [
   { key: "asoebi_gele", label: "Asoebi + Gele", price: 150 },
@@ -97,8 +98,8 @@ function injectStyles() {
     "*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}" +
     "html,body,#root{min-height:100vh}" +
     "body{background:" + CREAM + ";font-family:'Jost',sans-serif;color:" + NAVY + "}" +
-    "@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}" +
-    ".fade-up{animation:fadeUp .65s cubic-bezier(.16,1,.3,1) both}" +
+    "@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}" +
+    ".fade-up{animation:fadeUp .7s cubic-bezier(.16,1,.3,1) both}" +
     ".s1{animation-delay:.05s}.s2{animation-delay:.12s}.s3{animation-delay:.20s}" +
     ".s4{animation-delay:.28s}.s5{animation-delay:.36s}.s6{animation-delay:.44s}" +
     "input,select{font-family:'Jost',sans-serif}";
@@ -112,10 +113,10 @@ function Ornament(props) {
   const color = props.color || GOLD;
   return (
     <svg width={size} height={size / 2} viewBox="0 0 64 20" fill="none">
-      <line x1="0" y1="10" x2="24" y2="10" stroke={color} strokeWidth="0.8" />
-      <circle cx="32" cy="10" r="4" stroke={color} strokeWidth="0.8" fill="none" />
-      <circle cx="32" cy="10" r="1.5" fill={color} />
-      <line x1="40" y1="10" x2="64" y2="10" stroke={color} strokeWidth="0.8" />
+      <line x1="0" y1="10" x2="22" y2="10" stroke={color} strokeWidth="0.8" />
+      <circle cx="32" cy="10" r="5" stroke={color} strokeWidth="0.8" fill="none" />
+      <circle cx="32" cy="10" r="2" fill={color} />
+      <line x1="42" y1="10" x2="64" y2="10" stroke={color} strokeWidth="0.8" />
     </svg>
   );
 }
@@ -125,7 +126,7 @@ function Divider(props) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 16, margin: margin + "px 0" }}>
       <div style={{ flex: 1, height: "0.5px", background: GOLD + "55" }} />
-      <Ornament size={40} color={GOLD + "99"} />
+      <Ornament size={44} color={GOLD + "99"} />
       <div style={{ flex: 1, height: "0.5px", background: GOLD + "55" }} />
     </div>
   );
@@ -135,7 +136,9 @@ function Page(props) {
   return (
     <div style={{
       minHeight: "100vh", background: CREAM,
-      backgroundImage: "radial-gradient(ellipse 80% 60% at 50% -10%," + GOLD + "12 0%,transparent 70%)",
+      backgroundImage:
+        "linear-gradient(180deg," + NAVY + " 0px," + NAVY2 + " 80px," + NAVY + "ee 150px,transparent 270px)," +
+        "radial-gradient(ellipse 90% 40% at 50% 100%," + NAVY + "14 0%,transparent 70%)",
       display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
     }}>
       {props.children}
@@ -146,10 +149,13 @@ function Page(props) {
 function Card(props) {
   return (
     <div className={props.className || ""} style={Object.assign({
-      background: "#fff", border: "0.5px solid " + GOLD + "55",
-      borderRadius: 16, padding: "40px 44px",
-      width: "100%", maxWidth: 540,
-      boxShadow: "0 4px 40px " + NAVY + "08,0 0 0 1px " + GOLD + "18",
+      background: "#fff",
+      border: "0.5px solid " + GOLD + "44",
+      borderTop: "3px solid " + NAVY,
+      borderRadius: 16,
+      padding: "44px 48px",
+      width: "100%", maxWidth: 560,
+      boxShadow: "0 8px 50px " + NAVY + "18, 0 0 0 1px " + GOLD + "14",
     }, props.style || {})}>
       {props.children}
     </div>
@@ -161,17 +167,17 @@ function Btn(props) {
   const v = props.variant || "primary";
   const disabled = !!props.disabled;
   const base = {
-    fontFamily: "'Jost',sans-serif", fontWeight: 500, fontSize: 13,
-    letterSpacing: "0.12em", textTransform: "uppercase", padding: "14px 32px",
+    fontFamily: "'Jost',sans-serif", fontWeight: 500, fontSize: 14,
+    letterSpacing: "0.14em", textTransform: "uppercase", padding: "15px 34px",
     borderRadius: 4, cursor: disabled ? "not-allowed" : "pointer", border: "none",
     transition: "all .3s ease", display: "inline-block",
     width: props.full ? "100%" : "auto", opacity: disabled ? 0.55 : 1,
   };
   const variants = {
     primary: { background: hov ? GOLD2 : GOLD, color: "#fff", boxShadow: hov ? "0 6px 24px " + GOLD + "55" : "0 2px 12px " + GOLD + "30", transform: hov ? "translateY(-1px)" : "none" },
+    navy:    { background: hov ? NAVY2 : NAVY, color: "#fff", boxShadow: hov ? "0 6px 24px " + NAVY + "55" : "0 2px 12px " + NAVY + "30", transform: hov ? "translateY(-1px)" : "none" },
     outline: { background: "transparent", color: NAVY, border: "0.5px solid " + NAVY + "66", transform: hov && !disabled ? "translateY(-1px)" : "none" },
     ghost:   { background: hov ? CREAM2 : "transparent", color: MUTED, border: "0.5px solid " + MUTED + "44" },
-    success: { background: hov ? "#059669" : "#10b981", color: "#fff", boxShadow: hov ? "0 6px 24px #10b98155" : "0 2px 12px #10b98130", transform: hov ? "translateY(-1px)" : "none" },
   };
   return (
     <button
@@ -196,24 +202,25 @@ function ChoiceCard(props) {
       style={{
         padding: "20px 24px",
         border: (selected ? "1.5px" : "0.5px") + " solid " + (selected ? GOLD : hov ? GOLD + "88" : NAVY + "22"),
+        borderLeft: selected ? "4px solid " + GOLD : (hov ? "4px solid " + GOLD + "55" : "4px solid transparent"),
         borderRadius: 12, cursor: "pointer",
-        background: selected ? GOLD + "0e" : hov ? GOLD + "05" : "#fff",
+        background: selected ? NAVY + "06" : hov ? GOLD + "05" : "#fff",
         transition: "all .25s ease", display: "flex", alignItems: "center", gap: 16,
       }}
     >
-      {props.icon && <span style={{ fontSize: 20 }}>{props.icon}</span>}
+      {props.icon && <span style={{ fontSize: 22 }}>{props.icon}</span>}
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>{props.label}</div>
-        {props.sublabel && <div style={{ fontSize: 12, color: MUTED, marginTop: 2 }}>{props.sublabel}</div>}
+        <div style={{ fontSize: 15, fontWeight: 500, color: NAVY }}>{props.label}</div>
+        {props.sublabel && <div style={{ fontSize: 13, color: MUTED, marginTop: 3 }}>{props.sublabel}</div>}
       </div>
       <div style={{
-        width: 18, height: 18, borderRadius: "50%",
+        width: 20, height: 20, borderRadius: "50%",
         border: "1.5px solid " + (selected ? GOLD : NAVY + "33"),
         background: selected ? GOLD : "transparent",
         display: "flex", alignItems: "center", justifyContent: "center",
         transition: "all .2s", flexShrink: 0,
       }}>
-        {selected && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
+        {selected && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
       </div>
     </div>
   );
@@ -221,8 +228,8 @@ function ChoiceCard(props) {
 
 function Input(props) {
   return (
-    <div style={{ marginBottom: 20 }}>
-      <label style={{ display: "block", fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: MUTED, marginBottom: 8 }}>
+    <div style={{ marginBottom: 22 }}>
+      <label style={{ display: "block", fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", textTransform: "uppercase", color: NAVY + "99", marginBottom: 9 }}>
         {props.label}{props.required && <span style={{ color: GOLD }}> *</span>}
       </label>
       <input
@@ -230,8 +237,8 @@ function Input(props) {
         value={props.value}
         onChange={function(e) { props.onChange(e.target.value); }}
         placeholder={props.placeholder}
-        style={{ width: "100%", padding: "13px 16px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 14, background: "#fff", color: NAVY, outline: "none", fontFamily: "'Jost',sans-serif", transition: "border-color .2s" }}
-        onFocus={function(e) { e.target.style.borderColor = GOLD; e.target.style.boxShadow = "0 0 0 3px " + GOLD + "15"; }}
+        style={{ width: "100%", padding: "14px 17px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 15, background: "#fff", color: NAVY, outline: "none", fontFamily: "'Jost',sans-serif", transition: "all .2s" }}
+        onFocus={function(e) { e.target.style.borderColor = NAVY; e.target.style.boxShadow = "0 0 0 3px " + NAVY + "12"; }}
         onBlur={function(e)  { e.target.style.borderColor = NAVY + "33"; e.target.style.boxShadow = "none"; }}
       />
     </div>
@@ -240,12 +247,14 @@ function Input(props) {
 
 function Progress(props) {
   return (
-    <div style={{ display: "flex", gap: 6, justifyContent: "center", marginBottom: 32 }}>
+    <div style={{ display: "flex", gap: 7, justifyContent: "center", marginBottom: 28 }}>
       {Array.from({ length: props.total }).map(function(_, i) {
         return (
           <div key={i} style={{
-            width: i === props.step ? 20 : 6, height: 6, borderRadius: 3,
-            background: i <= props.step ? GOLD : NAVY + "22", transition: "all .3s ease",
+            width: i === props.step ? 28 : 7,
+            height: 7, borderRadius: 4,
+            background: i < props.step ? NAVY : i === props.step ? GOLD : NAVY + "18",
+            transition: "all .35s ease",
           }} />
         );
       })}
@@ -253,17 +262,32 @@ function Progress(props) {
   );
 }
 
+// Navy top strip for each card
+function NavyBadge(props) {
+  return (
+    <div style={{
+      background: NAVY,
+      borderRadius: "12px 12px 0 0",
+      padding: "14px 20px",
+      textAlign: "center",
+      marginTop: -44, marginLeft: -48, marginRight: -48, marginBottom: 32,
+      borderBottom: "1px solid " + GOLD + "33",
+    }}>
+      <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: GOLD, fontWeight: 500 }}>
+        {props.label || "08 · 08 · 2026"}
+      </div>
+    </div>
+  );
+}
+
 function EventHeader(props) {
   return (
     <div style={{ textAlign: "center", marginBottom: 32 }}>
-      <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: GOLD, marginBottom: 10, fontWeight: 500 }}>
-        08 · 08 · 2026
-      </div>
-      <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 38, fontWeight: 400, color: NAVY, lineHeight: 1.15 }}>
+      <h1 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 44, fontWeight: 400, color: NAVY, lineHeight: 1.1 }}>
         Mariam <em style={{ fontStyle: "italic", color: GOLD }}>@ 50</em>
       </h1>
       {props.subtitle && (
-        <p style={{ fontSize: 13, color: MUTED, marginTop: 10, fontWeight: 300, lineHeight: 1.6 }}>{props.subtitle}</p>
+        <p style={{ fontSize: 15, color: MUTED, marginTop: 12, fontWeight: 300, lineHeight: 1.6 }}>{props.subtitle}</p>
       )}
     </div>
   );
@@ -291,38 +315,39 @@ function useCountdown() {
 
 function TimeBox(props) {
   return (
-    <div style={{ textAlign: "center", minWidth: 48 }}>
-      <div style={{ fontSize: 28, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: NAVY, lineHeight: 1 }}>
+    <div style={{ textAlign: "center", minWidth: 52 }}>
+      <div style={{ fontSize: 30, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: CREAM, lineHeight: 1 }}>
         {String(props.value).padStart(2, "0")}
       </div>
-      <div style={{ fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase", color: MUTED, marginTop: 3 }}>
+      <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: GOLD + "99", marginTop: 4 }}>
         {props.label}
       </div>
     </div>
   );
 }
 
-// ── Pay section (shared between solo and group flows) ──────
+// ── Pay section ────────────────────────────────────────────
 
 function PaySection(props) {
   const time = useCountdown();
   const { payMethod, setPayMethod, total, isCap } = props;
   return (
     <>
-      <div style={{ background: CREAM2, border: "0.5px solid " + GOLD + "55", borderRadius: 12, padding: "16px 18px", marginBottom: 14, textAlign: "center" }}>
-        <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: GOLD, marginBottom: 12, fontWeight: 500 }}>
-          Payment Deadline -- 15 May 2026
+      {/* Countdown in navy */}
+      <div style={{ background: NAVY, borderRadius: 12, padding: "18px 20px", marginBottom: 14, textAlign: "center" }}>
+        <div style={{ fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD, marginBottom: 14, fontWeight: 500 }}>
+          Payment Deadline &mdash; 15 May 2026
         </div>
         {time.expired ? (
-          <p style={{ fontSize: 12, color: MUTED }}>The payment deadline has passed</p>
+          <p style={{ fontSize: 13, color: MUTED }}>The payment deadline has passed</p>
         ) : (
-          <div style={{ display: "flex", justifyContent: "center", gap: 4, alignItems: "center" }}>
+          <div style={{ display: "flex", justifyContent: "center", gap: 6, alignItems: "center" }}>
             <TimeBox value={time.days}  label="Days"  />
-            <div style={{ fontSize: 20, color: GOLD, marginBottom: 8, fontWeight: 300 }}>:</div>
+            <div style={{ fontSize: 22, color: GOLD + "88", marginBottom: 8, fontWeight: 300 }}>:</div>
             <TimeBox value={time.hours} label="Hours" />
-            <div style={{ fontSize: 20, color: GOLD, marginBottom: 8, fontWeight: 300 }}>:</div>
+            <div style={{ fontSize: 22, color: GOLD + "88", marginBottom: 8, fontWeight: 300 }}>:</div>
             <TimeBox value={time.mins}  label="Mins"  />
-            <div style={{ fontSize: 20, color: GOLD, marginBottom: 8, fontWeight: 300 }}>:</div>
+            <div style={{ fontSize: 22, color: GOLD + "88", marginBottom: 8, fontWeight: 300 }}>:</div>
             <TimeBox value={time.secs}  label="Secs"  />
           </div>
         )}
@@ -331,20 +356,21 @@ function PaySection(props) {
       {/* Pay Now */}
       <div onClick={function() { setPayMethod("now"); }} style={{
         border: (payMethod === "now" ? "1.5px" : "0.5px") + " solid " + (payMethod === "now" ? GOLD : NAVY + "22"),
-        borderRadius: 12, padding: "16px 18px", marginBottom: 8,
-        background: payMethod === "now" ? GOLD + "0e" : "#fff", cursor: "pointer", transition: "all .25s",
+        borderLeft: payMethod === "now" ? "4px solid " + GOLD : "4px solid transparent",
+        borderRadius: 12, padding: "17px 18px", marginBottom: 9,
+        background: payMethod === "now" ? NAVY + "04" : "#fff", cursor: "pointer", transition: "all .25s",
       }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "now" ? 12 : 0 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "now" ? 14 : 0 }}>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Now</div>
-            <div style={{ fontSize: 11, color: MUTED, marginTop: 2 }}>via link</div>
+            <div style={{ fontSize: 15, fontWeight: 500, color: NAVY }}>Pay Now</div>
+            <div style={{ fontSize: 12, color: MUTED, marginTop: 3 }}>via link</div>
           </div>
-          <div style={{ width: 16, height: 16, borderRadius: "50%", border: "1.5px solid " + (payMethod === "now" ? GOLD : NAVY + "33"), background: payMethod === "now" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {payMethod === "now" && <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#fff" }} />}
+          <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "now" ? GOLD : NAVY + "33"), background: payMethod === "now" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {payMethod === "now" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
           </div>
         </div>
         {payMethod === "now" && (
-          <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "9px 18px", fontFamily: "'Jost',sans-serif" }}>
+          <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "10px 20px", fontFamily: "'Jost',sans-serif" }}>
             Open link
           </a>
         )}
@@ -352,31 +378,32 @@ function PaySection(props) {
 
       {/* Pay Later */}
       <div onClick={function() { setPayMethod("later"); }} style={{
-        border: (payMethod === "later" ? "1.5px" : "0.5px") + " solid " + (payMethod === "later" ? GOLD : NAVY + "22"),
-        borderRadius: 12, padding: "16px 18px", marginBottom: 14,
-        background: payMethod === "later" ? GOLD + "0e" : "#fff", cursor: "pointer", transition: "all .25s",
+        border: (payMethod === "later" ? "1.5px" : "0.5px") + " solid " + (payMethod === "later" ? NAVY + "66" : NAVY + "22"),
+        borderLeft: payMethod === "later" ? "4px solid " + NAVY : "4px solid transparent",
+        borderRadius: 12, padding: "17px 18px", marginBottom: 16,
+        background: payMethod === "later" ? NAVY + "04" : "#fff", cursor: "pointer", transition: "all .25s",
       }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "later" ? 12 : 0 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "later" ? 14 : 0 }}>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Later</div>
-            <div style={{ fontSize: 11, color: MUTED, marginTop: 2 }}>bank transfer -- by 15 May</div>
+            <div style={{ fontSize: 15, fontWeight: 500, color: NAVY }}>Pay Later</div>
+            <div style={{ fontSize: 12, color: MUTED, marginTop: 3 }}>bank transfer &mdash; by 15 May</div>
           </div>
-          <div style={{ width: 16, height: 16, borderRadius: "50%", border: "1.5px solid " + (payMethod === "later" ? GOLD : NAVY + "33"), background: payMethod === "later" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {payMethod === "later" && <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#fff" }} />}
+          <div style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid " + (payMethod === "later" ? NAVY : NAVY + "33"), background: payMethod === "later" ? NAVY : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {payMethod === "later" && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />}
           </div>
         </div>
         {payMethod === "later" && (
-          <div style={{ background: "#fff", border: "0.5px solid " + GOLD + "33", borderRadius: 8, padding: "12px 14px" }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 8 }}>Bank Details</div>
+          <div style={{ background: NAVY + "06", border: "0.5px solid " + NAVY + "18", borderRadius: 10, padding: "14px 16px" }}>
+            <div style={{ fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: NAVY, fontWeight: 600, marginBottom: 10 }}>Bank Details</div>
             {[["Bank", BANK_NAME], ["Account Name", ACCOUNT_NAME], ["Sort Code", SORT_CODE], ["Account Number", ACCOUNT_NO]].map(function(row) {
               return (
-                <div key={row[0]} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "0.5px solid " + GOLD + "18" }}>
-                  <span style={{ fontSize: 12, color: MUTED }}>{row[0]}</span>
-                  <span style={{ fontSize: 12, fontWeight: 500, color: NAVY }}>{row[1]}</span>
+                <div key={row[0]} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: "0.5px solid " + NAVY + "12" }}>
+                  <span style={{ fontSize: 13, color: MUTED }}>{row[0]}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: NAVY }}>{row[1]}</span>
                 </div>
               );
             })}
-            <p style={{ fontSize: 11, color: MUTED, marginTop: 8, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 12, color: MUTED, marginTop: 10, lineHeight: 1.6 }}>
               Use your name as reference.{total > 0 ? " Total: £" + total + "." : ""}{isCap ? " Include cap size." : ""}
             </p>
           </div>
@@ -393,16 +420,37 @@ function PaySection(props) {
 function HomeView(props) {
   return (
     <Page>
-      <div style={{ textAlign: "center", padding: "20px 24px", width: "100%", maxWidth: 560 }}>
-        <div className="fade-up s1" style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: GOLD, marginBottom: 20, fontWeight: 500 }}>You Are Cordially Invited</div>
-        <div className="fade-up s2"><Ornament size={80} color={GOLD + "cc"} /></div>
-        <h1 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(52px,12vw,88px)", fontWeight: 300, color: NAVY, lineHeight: 1.0, margin: "24px 0 8px" }}>Mariam</h1>
-        <h2 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(28px,7vw,48px)", fontWeight: 400, fontStyle: "italic", color: GOLD, marginBottom: 8 }}>@ 50</h2>
-        <div className="fade-up s4" style={{ fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", color: MUTED, marginBottom: 36 }}>08 August 2026</div>
+      <div style={{ textAlign: "center", padding: "20px 24px", width: "100%", maxWidth: 580 }}>
+
+        {/* Invited badge */}
+        <div className="fade-up s1" style={{
+          background: NAVY, borderRadius: 12,
+          padding: "14px 28px", marginBottom: 36,
+          display: "inline-block",
+        }}>
+          <div style={{ fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: GOLD, fontWeight: 500 }}>
+            You Are Cordially Invited
+          </div>
+        </div>
+
+        <div className="fade-up s2"><Ornament size={88} color={GOLD + "cc"} /></div>
+        <h1 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(60px,14vw,96px)", fontWeight: 300, color: CREAM, lineHeight: 1.0, margin: "26px 0 6px" }}>Mariam</h1>
+        <h2 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(32px,8vw,52px)", fontWeight: 400, fontStyle: "italic", color: GOLD, marginBottom: 10 }}>@ 50</h2>
+        <div className="fade-up s4" style={{ fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase", color: CREAM + "99", marginBottom: 36 }}>08 August 2026</div>
+
         <div className="fade-up s4"><Divider my={0} /></div>
-        <p className="fade-up s5" style={{ fontSize: 14, color: MUTED, fontWeight: 300, lineHeight: 1.8, margin: "28px 0 36px" }}>Please click below to RSVP</p>
+
+        <p className="fade-up s5" style={{ fontSize: 16, color: CREAM + "cc", fontWeight: 300, lineHeight: 1.8, margin: "28px 0 36px" }}>
+          Please click below to RSVP
+        </p>
         <div className="fade-up s6">
-          <Btn onClick={props.onStart} style={{ minWidth: 200, fontSize: 12, letterSpacing: "0.18em", padding: "16px 40px" }}>RSVP Here</Btn>
+          <Btn onClick={props.onStart} style={{ minWidth: 220, fontSize: 13, letterSpacing: "0.2em", padding: "17px 44px" }}>
+            RSVP Here
+          </Btn>
+        </div>
+
+        <div className="fade-up s6" style={{ marginTop: 48, borderTop: "0.5px solid " + GOLD + "33", paddingTop: 16 }}>
+          <p style={{ fontSize: 12, color: CREAM + "44", letterSpacing: "0.12em" }}>MARIAM @ 50 &middot; 08/08/2026</p>
         </div>
       </div>
     </Page>
@@ -438,16 +486,17 @@ function DetailsView(props) {
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Progress step={0} total={3} />
         <Card className="fade-up">
+          <NavyBadge label="Your Details" />
           <EventHeader subtitle="Let's start with your details" />
-          <Divider my={24} />
+          <Divider my={26} />
           <Input label="Full Name" value={name} onChange={setName} placeholder="Your full name" required />
           <Input label="Email Address" value={email} onChange={function(v) { setEmail(v); setDupErr(""); }} type="email" placeholder="your@email.com" required />
           {dupErr && (
-            <div style={{ background: GOLD + "0e", border: "0.5px solid " + GOLD + "66", borderRadius: 10, padding: "12px 16px", marginBottom: 16, fontSize: 13, color: NAVY, lineHeight: 1.6, fontWeight: 300 }}>
+            <div style={{ background: GOLD + "0e", border: "0.5px solid " + GOLD + "66", borderRadius: 10, padding: "13px 17px", marginBottom: 18, fontSize: 14, color: NAVY, lineHeight: 1.6, fontWeight: 300 }}>
               {dupErr}
             </div>
           )}
-          <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+          <div style={{ display: "flex", gap: 12, marginTop: 10 }}>
             <Btn variant="ghost" onClick={props.onBack} style={{ flex: 1 }}>Back</Btn>
             <Btn onClick={handleContinue} disabled={!isValid || checking} style={{ flex: 2 }}>
               {checking ? "Checking..." : "Continue"}
@@ -466,13 +515,14 @@ function Q1View(props) {
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Progress step={1} total={3} />
         <Card className="fade-up">
+          <NavyBadge label="Attendance" />
           <EventHeader />
-          <Divider my={24} />
-          <p style={{ fontSize: 15, color: NAVY, lineHeight: 1.7, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
+          <Divider my={26} />
+          <p style={{ fontSize: 16, color: NAVY, lineHeight: 1.75, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
             Will you be joining us to celebrate<br />
-            <strong style={{ fontWeight: 500 }}>Mariam @ 50</strong> on <strong style={{ fontWeight: 500 }}>08/08/2026</strong>?
+            <strong style={{ fontWeight: 600 }}>Mariam @ 50</strong> on <strong style={{ fontWeight: 600 }}>08/08/2026</strong>?
           </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
             <ChoiceCard label="Yes, I will be in attendance" icon="🎉" selected={choice === "yes"} onClick={function() { setChoice("yes"); }} />
             <ChoiceCard label="No, sorry I cannot make it"   icon="🤍" selected={choice === "no"}  onClick={function() { setChoice("no");  }} />
           </div>
@@ -493,17 +543,18 @@ function ContributionView(props) {
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Progress step={2} total={3} />
         <Card className="fade-up">
+          <NavyBadge label="Gift" />
           <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <div style={{ fontSize: 36, marginBottom: 12 }}>🌸</div>
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 26, fontWeight: 400, color: NAVY, marginBottom: 10 }}>We Are So Sorry</h2>
-            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, fontWeight: 300 }}>
+            <div style={{ fontSize: 40, marginBottom: 14 }}>🌸</div>
+            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 30, fontWeight: 400, color: NAVY, marginBottom: 12 }}>We Are So Sorry</h2>
+            <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.75, fontWeight: 300 }}>
               We are so sorry you cannot make it.<br />Would you like to gift?
             </p>
           </div>
-          <Divider my={20} />
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
+          <Divider my={22} />
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 26 }}>
             <ChoiceCard label="Yes, I would like to gift" icon="💛" selected={choice === "yes"} onClick={function() { setChoice("yes"); }} />
-            <ChoiceCard label="No, thank you"                    icon="🤍" selected={choice === "no"}  onClick={function() { setChoice("no");  }} />
+            <ChoiceCard label="No, thank you"             icon="🤍" selected={choice === "no"}  onClick={function() { setChoice("no");  }} />
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <Btn variant="ghost" onClick={props.onBack} style={{ flex: 1 }}>Back</Btn>
@@ -517,8 +568,6 @@ function ContributionView(props) {
   );
 }
 
-// ── NEW: Group question ────────────────────────────────────
-
 function GroupQuestionView(props) {
   const [choice, setChoice] = useState(null);
   return (
@@ -526,12 +575,10 @@ function GroupQuestionView(props) {
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Progress step={2} total={3} />
         <Card className="fade-up">
-          <EventHeader subtitle="Almost there!" />
-          <Divider my={24} />
-          <p style={{ fontSize: 15, color: NAVY, lineHeight: 1.7, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
-            Are you RSVPing for anyone else?
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
+          <NavyBadge label="Almost There!" />
+          <EventHeader subtitle="Are you RSVPing for anyone else?" />
+          <Divider my={26} />
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
             <ChoiceCard
               label="Just me"
               sublabel="Only RSVPing for myself"
@@ -563,8 +610,6 @@ function GroupQuestionView(props) {
   );
 }
 
-// ── Solo asoebi flow (existing, unchanged) ─────────────────
-
 function Q2View(props) {
   const [choice, setChoice] = useState(null);
   return (
@@ -572,22 +617,23 @@ function Q2View(props) {
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Progress step={2} total={3} />
         <Card className="fade-up">
+          <NavyBadge label="Asoebi &amp; Attire" />
           <EventHeader subtitle="We have beautiful attire options available" />
-          <Divider my={24} />
-          <p style={{ fontSize: 15, color: NAVY, lineHeight: 1.7, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
-            Would you like to buy <strong style={{ fontWeight: 500 }}>asoebi</strong>, <strong style={{ fontWeight: 500 }}>gele</strong>, or a <strong style={{ fontWeight: 500 }}>cap</strong>?
+          <Divider my={26} />
+          <p style={{ fontSize: 16, color: NAVY, lineHeight: 1.75, textAlign: "center", marginBottom: 28, fontWeight: 300 }}>
+            Would you like to buy <strong style={{ fontWeight: 600 }}>asoebi</strong>, <strong style={{ fontWeight: 600 }}>gele</strong>, or a <strong style={{ fontWeight: 600 }}>cap</strong>?
           </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
-            <ChoiceCard label="Yes, I would love to"                    icon="⭐️" selected={choice === "yes"}      onClick={function() { setChoice("yes");      }} />
-            <ChoiceCard label="Yes, I would love to and I have paid"    icon="🤍" selected={choice === "yes_paid"} onClick={function() { setChoice("yes_paid"); }} />
-            <ChoiceCard label="No, I don't want to"                     icon="💙" selected={choice === "no"}       onClick={function() { setChoice("no");       }} />
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
+            <ChoiceCard label="Yes, I would love to"                 icon="⭐️" selected={choice === "yes"}      onClick={function() { setChoice("yes");      }} />
+            <ChoiceCard label="Yes, I would love to and I have paid" icon="🤍" selected={choice === "yes_paid"} onClick={function() { setChoice("yes_paid"); }} />
+            <ChoiceCard label="No, I don't want to"                  icon="💙" selected={choice === "no"}       onClick={function() { setChoice("no");       }} />
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <Btn variant="ghost" onClick={props.onBack} style={{ flex: 1 }}>Back</Btn>
             <Btn disabled={!choice} onClick={function() {
-              if (choice === "yes")      props.onYes();
+              if (choice === "yes")           props.onYes();
               else if (choice === "yes_paid") props.onYesPaid();
-              else props.onNo();
+              else                            props.onNo();
             }} style={{ flex: 2 }}>Continue</Btn>
           </div>
         </Card>
@@ -607,11 +653,12 @@ function AsoebItems(props) {
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Progress step={2} total={3} />
         <Card className="fade-up">
+          <NavyBadge label="Select Your Attire" />
           <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 26, fontWeight: 400, color: NAVY, marginBottom: 8 }}>Select Your Attire</h2>
-            <p style={{ fontSize: 13, color: MUTED, fontWeight: 300 }}>Choose your item below</p>
+            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 30, fontWeight: 400, color: NAVY, marginBottom: 8 }}>Choose Your Item</h2>
+            <p style={{ fontSize: 14, color: MUTED, fontWeight: 300 }}>Select one of the options below</p>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
             {ITEMS.map(function(it) {
               return (
                 <ChoiceCard key={it.key} label={it.label} sublabel={"£" + it.price}
@@ -622,14 +669,14 @@ function AsoebItems(props) {
             })}
           </div>
           {isCap && (
-            <div style={{ background: "#fff8e1", border: "0.5px solid #f59e0b88", borderRadius: 10, padding: "12px 16px", marginBottom: 14, display: "flex", gap: 10 }}>
-              <span style={{ fontSize: 16 }}>👒</span>
-              <p style={{ fontSize: 13, color: NAVY, lineHeight: 1.6, fontWeight: 300 }}>
+            <div style={{ background: "#fff8e1", border: "0.5px solid #f59e0b88", borderRadius: 10, padding: "13px 17px", marginBottom: 14, display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>👒</span>
+              <p style={{ fontSize: 14, color: NAVY, lineHeight: 1.65, fontWeight: 300 }}>
                 Cap buyers should <strong style={{ fontWeight: 600 }}>wear white</strong> on the day. Add your cap size in the payment reference.
               </p>
             </div>
           )}
-          <Divider my={16} />
+          <Divider my={18} />
           <PaySection payMethod={payMethod} setPayMethod={setPayMethod} total={total} isCap={isCap} />
           <div style={{ display: "flex", gap: 12 }}>
             <Btn variant="ghost" onClick={props.onBack} style={{ flex: 1 }}>Back</Btn>
@@ -643,19 +690,19 @@ function AsoebItems(props) {
   );
 }
 
-// ── NEW: Group build view ──────────────────────────────────
+// ── Group build view ───────────────────────────────────────
 
 function AsoToggle(props) {
   return (
-    <div style={{ display: "flex", gap: 6 }}>
+    <div style={{ display: "flex", gap: 7 }}>
       {[{v: true, l: "Yes"}, {v: false, l: "No"}].map(function(opt) {
         const active = props.value === opt.v;
         return (
           <button key={opt.l} onClick={function() { props.onChange(opt.v); }} style={{
-            padding: "5px 14px", fontSize: 12, borderRadius: 20,
-            border: "0.5px solid " + (active ? (opt.v ? GOLD : NAVY + "55") : NAVY + "22"),
-            background: active ? (opt.v ? GOLD : NAVY + "11") : "transparent",
-            color: active ? (opt.v ? "#fff" : NAVY) : MUTED,
+            padding: "6px 16px", fontSize: 13, borderRadius: 20,
+            border: "0.5px solid " + (active ? (opt.v ? GOLD : NAVY + "66") : NAVY + "22"),
+            background: active ? (opt.v ? GOLD : NAVY) : "transparent",
+            color: active ? "#fff" : MUTED,
             cursor: "pointer", fontFamily: "'Jost',sans-serif",
             fontWeight: active ? 500 : 400, transition: "all .2s",
           }}>
@@ -672,15 +719,16 @@ function PersonCard(props) {
   return (
     <div style={{
       border: "0.5px solid " + (props.wantsAsoebi ? GOLD + "66" : NAVY + "18"),
-      borderRadius: 12, padding: "14px 16px",
-      background: props.wantsAsoebi ? GOLD + "06" : "#fff",
+      borderLeft: "4px solid " + (props.wantsAsoebi ? GOLD : NAVY + "22"),
+      borderRadius: 12, padding: "16px 18px",
+      background: props.wantsAsoebi ? GOLD + "05" : NAVY + "03",
       transition: "all .2s",
     }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
         {props.isLead ? (
           <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 2 }}>You</div>
-            <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>{props.name}</div>
+            <div style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 3 }}>You</div>
+            <div style={{ fontSize: 16, fontWeight: 500, color: NAVY }}>{props.name}</div>
           </div>
         ) : (
           <>
@@ -688,7 +736,7 @@ function PersonCard(props) {
               value={props.name}
               onChange={function(e) { props.onNameChange(e.target.value); }}
               placeholder="Guest full name"
-              style={{ flex: 1, padding: "8px 12px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 13, color: NAVY, background: "#fff", fontFamily: "'Jost',sans-serif", outline: "none" }}
+              style={{ flex: 1, padding: "9px 13px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 14, color: NAVY, background: "#fff", fontFamily: "'Jost',sans-serif", outline: "none" }}
             />
             <button onClick={props.onRemove} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 20, color: MUTED, padding: "0 4px", lineHeight: 1, flexShrink: 0 }}>
               x
@@ -697,14 +745,14 @@ function PersonCard(props) {
         )}
       </div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontSize: 12, color: MUTED }}>Asoebi/Gele/Cap?</span>
+        <span style={{ fontSize: 13, color: MUTED }}>Asoebi / Gele / Cap?</span>
         <AsoToggle value={props.wantsAsoebi} onChange={props.onToggleAsoebi} />
       </div>
       {props.wantsAsoebi && (
         <select
           value={props.asoItem || ""}
           onChange={function(e) { props.onItemChange(e.target.value); }}
-          style={{ width: "100%", marginTop: 10, padding: "9px 12px", border: "0.5px solid " + GOLD + "55", borderRadius: 8, fontSize: 13, color: NAVY, background: "#fff", fontFamily: "'Jost',sans-serif", outline: "none" }}
+          style={{ width: "100%", marginTop: 12, padding: "10px 13px", border: "0.5px solid " + GOLD + "55", borderRadius: 8, fontSize: 14, color: NAVY, background: "#fff", fontFamily: "'Jost',sans-serif", outline: "none" }}
         >
           <option value="">Select an item...</option>
           {ITEMS.map(function(it) {
@@ -713,7 +761,7 @@ function PersonCard(props) {
         </select>
       )}
       {isCap && props.wantsAsoebi && (
-        <div style={{ marginTop: 8, padding: "8px 12px", background: "#fff8e1", borderRadius: 8, fontSize: 12, color: NAVY, lineHeight: 1.5 }}>
+        <div style={{ marginTop: 10, padding: "9px 13px", background: "#fff8e1", borderRadius: 8, fontSize: 13, color: NAVY, lineHeight: 1.55 }}>
           👒 Please can all men wear white on the day with their cap. Kindly add cap size in payment reference. Thank you
         </div>
       )}
@@ -774,13 +822,14 @@ function GroupBuildView(props) {
     <Page>
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Progress step={2} total={3} />
-        <Card className="fade-up" style={{ maxWidth: 560 }}>
-          <div style={{ textAlign: "center", marginBottom: 24 }}>
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 26, fontWeight: 400, color: NAVY, marginBottom: 6 }}>Group RSVP</h2>
-            <p style={{ fontSize: 13, color: MUTED, fontWeight: 300 }}>Set asoebi choices for everyone in your party</p>
+        <Card className="fade-up" style={{ maxWidth: 580 }}>
+          <NavyBadge label="Group RSVP" />
+          <div style={{ textAlign: "center", marginBottom: 26 }}>
+            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 30, fontWeight: 400, color: NAVY, marginBottom: 7 }}>Your Party</h2>
+            <p style={{ fontSize: 14, color: MUTED, fontWeight: 300 }}>Set asoebi choices for everyone in your party</p>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 14 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 14 }}>
             <PersonCard
               isLead name={props.leadName}
               wantsAsoebi={leadWants} asoItem={leadItem}
@@ -802,27 +851,27 @@ function GroupBuildView(props) {
           </div>
 
           {members.length < 9 && (
-            <button onClick={addMember} style={{ width: "100%", padding: "12px", border: "0.5px dashed " + GOLD + "66", borderRadius: 10, background: "transparent", color: GOLD, fontSize: 13, fontWeight: 500, cursor: "pointer", fontFamily: "'Jost',sans-serif", marginBottom: 14 }}>
+            <button onClick={addMember} style={{ width: "100%", padding: "13px", border: "0.5px dashed " + NAVY + "44", borderRadius: 10, background: "transparent", color: NAVY, fontSize: 14, fontWeight: 500, cursor: "pointer", fontFamily: "'Jost',sans-serif", marginBottom: 14 }}>
               + Add another person
             </button>
           )}
 
           {total > 0 && (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: GOLD + "0c", border: "0.5px solid " + GOLD + "44", borderRadius: 8, padding: "10px 16px", marginBottom: 14 }}>
-              <span style={{ fontSize: 13, color: NAVY, fontWeight: 500 }}>Total payment due</span>
-              <span style={{ fontSize: 18, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: GOLD }}>£{total}</span>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: NAVY, borderRadius: 10, padding: "14px 18px", marginBottom: 14 }}>
+              <span style={{ fontSize: 14, color: CREAM, fontWeight: 500 }}>Total payment due</span>
+              <span style={{ fontSize: 22, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: GOLD }}>£{total}</span>
             </div>
           )}
 
           {anyAsoebi && (
             <>
-              <Divider my={14} />
+              <Divider my={16} />
               <PaySection payMethod={payMethod} setPayMethod={setPayMethod} total={total} isCap={anyCap} />
             </>
           )}
 
           {props.errMsg && (
-            <div style={{ background: "#fef2f2", border: "0.5px solid #fca5a5", borderRadius: 8, padding: "10px 14px", marginBottom: 12, fontSize: 13, color: "#991b1b" }}>
+            <div style={{ background: "#fef2f2", border: "0.5px solid #fca5a5", borderRadius: 8, padding: "11px 15px", marginBottom: 14, fontSize: 14, color: "#991b1b" }}>
               {props.errMsg}
             </div>
           )}
@@ -847,12 +896,12 @@ const ATTENDING_TYPES = ["default", "asoebi_paid", "asoebi_no", "asoebi_items_no
 
 function GiftBox() {
   return (
-    <div style={{ background: GOLD + "08", border: "0.5px solid " + GOLD + "44", borderRadius: 12, padding: "18px 20px", textAlign: "left" }}>
-      <div style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 6 }}>Would you like to give a gift?</div>
-      <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.7, fontWeight: 300, marginBottom: 12 }}>
+    <div style={{ background: NAVY + "06", border: "0.5px solid " + NAVY + "18", borderRadius: 12, padding: "20px 22px", textAlign: "left" }}>
+      <div style={{ fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: NAVY, fontWeight: 600, marginBottom: 8 }}>Would you like to give a gift?</div>
+      <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75, fontWeight: 300, marginBottom: 14 }}>
         If you would like to bless Mariam with a monetary gift, you can send it via the link below. Your generosity is so appreciated!
       </p>
-      <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "9px 18px", fontFamily: "'Jost',sans-serif" }}>
+      <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "10px 20px", fontFamily: "'Jost',sans-serif" }}>
         Send a Gift
       </a>
     </div>
@@ -862,7 +911,6 @@ function GiftBox() {
 function DoneView(props) {
   const type = props.type;
 
-  // ── Group done ───────────────────────────────────────────
   if (type === "group_done" && props.groupData) {
     const gd = props.groupData;
     const allPeople = [{ name: props.leadName, wantsAsoebi: gd.lead.wantsAsoebi, asoItem: gd.lead.item, isLead: true }]
@@ -875,76 +923,75 @@ function DoneView(props) {
       <Page>
         <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Card className="fade-up" style={{ textAlign: "center" }}>
-            <div style={{ fontSize: 44, marginBottom: 20 }}>🎉</div>
-            <Ornament size={60} color={GOLD + "88"} />
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 32, fontWeight: 400, color: NAVY, margin: "20px 0 8px" }}>Group Confirmed!</h2>
-            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.8, fontWeight: 300, marginBottom: 24 }}>
+            <NavyBadge label="Group Confirmed!" />
+            <div style={{ fontSize: 48, marginBottom: 20 }}>🎉</div>
+            <Ornament size={64} color={GOLD + "88"} />
+            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 36, fontWeight: 400, color: NAVY, margin: "22px 0 10px" }}>Group Confirmed!</h2>
+            <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.8, fontWeight: 300, marginBottom: 26 }}>
               We cannot wait to see you!
             </p>
 
-            {/* Party list */}
-            <div style={{ background: CREAM2, borderRadius: 12, padding: "16px 20px", marginBottom: 16, textAlign: "left" }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 12 }}>
-                Your party -- {allPeople.length} {allPeople.length === 1 ? "person" : "people"}
+            <div style={{ background: NAVY, borderRadius: 12, padding: "18px 22px", marginBottom: 16, textAlign: "left" }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 14 }}>
+                Your party &mdash; {allPeople.length} {allPeople.length === 1 ? "person" : "people"}
               </div>
               {allPeople.map(function(p, i) {
                 return (
-                  <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: i < allPeople.length - 1 ? "0.5px solid " + GOLD + "22" : "none" }}>
+                  <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "9px 0", borderBottom: i < allPeople.length - 1 ? "0.5px solid " + GOLD + "22" : "none" }}>
                     <div>
-                      <span style={{ fontSize: 13, fontWeight: 500, color: NAVY }}>{p.name}</span>
-                      {p.isLead && <span style={{ fontSize: 10, color: GOLD, marginLeft: 6, letterSpacing: "0.06em" }}>you</span>}
+                      <span style={{ fontSize: 15, fontWeight: 500, color: CREAM }}>{p.name}</span>
+                      {p.isLead && <span style={{ fontSize: 11, color: GOLD, marginLeft: 7, letterSpacing: "0.06em" }}>you</span>}
                     </div>
-                    <div style={{ fontSize: 12, color: p.wantsAsoebi ? GOLD : MUTED }}>
+                    <div style={{ fontSize: 13, color: p.wantsAsoebi ? GOLD : MUTED }}>
                       {p.wantsAsoebi && p.asoItem ? ITEM_LABEL[p.asoItem] + " -- £" + ITEM_PRICE[p.asoItem] : "No asoebi"}
                     </div>
                   </div>
                 );
               })}
               {total > 0 && (
-                <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 10, marginTop: 4 }}>
-                  <span style={{ fontSize: 12, fontWeight: 500, color: NAVY }}>Total</span>
-                  <span style={{ fontSize: 16, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: GOLD }}>£{total}</span>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingTop: 12, marginTop: 6 }}>
+                  <span style={{ fontSize: 14, fontWeight: 500, color: CREAM }}>Total</span>
+                  <span style={{ fontSize: 22, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: GOLD }}>£{total}</span>
                 </div>
               )}
             </div>
 
             {hasNoAsoebi && (
-              <div style={{ background: NAVY + "06", borderRadius: 10, padding: "12px 16px", marginBottom: 16, textAlign: "left" }}>
-                <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.7, fontWeight: 300 }}>
-                  Dress code for those without asoebi: <strong style={{ fontWeight: 600, color: NAVY }}>Navy Blue</strong> and <strong style={{ fontWeight: 600, color: GOLD }}>Gold</strong>
+              <div style={{ background: NAVY + "08", border: "0.5px solid " + NAVY + "18", borderRadius: 10, padding: "13px 17px", marginBottom: 16, textAlign: "left" }}>
+                <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75, fontWeight: 300 }}>
+                  Dress code for those without asoebi: <strong style={{ fontWeight: 700, color: NAVY }}>Navy Blue</strong> and <strong style={{ fontWeight: 700, color: GOLD }}>Gold</strong>
                 </p>
               </div>
             )}
 
             {gd.payMethod === "later" && total > 0 && (
-              <div style={{ background: CREAM2, border: "0.5px solid " + GOLD + "55", borderRadius: 12, padding: "16px 20px", marginBottom: 16, textAlign: "left" }}>
-                <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 10 }}>Bank Details</div>
+              <div style={{ background: NAVY + "06", border: "0.5px solid " + NAVY + "18", borderRadius: 12, padding: "18px 20px", marginBottom: 16, textAlign: "left" }}>
+                <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: NAVY, fontWeight: 600, marginBottom: 12 }}>Bank Details</div>
                 {[["Bank", BANK_NAME], ["Account Name", ACCOUNT_NAME], ["Sort Code", SORT_CODE], ["Account Number", ACCOUNT_NO]].map(function(row) {
                   return (
-                    <div key={row[0]} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "0.5px solid " + GOLD + "22" }}>
-                      <span style={{ fontSize: 12, color: MUTED }}>{row[0]}</span>
-                      <span style={{ fontSize: 12, fontWeight: 500, color: NAVY }}>{row[1]}</span>
+                    <div key={row[0]} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: "0.5px solid " + NAVY + "12" }}>
+                      <span style={{ fontSize: 13, color: MUTED }}>{row[0]}</span>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: NAVY }}>{row[1]}</span>
                     </div>
                   );
                 })}
-                <p style={{ fontSize: 11, color: MUTED, marginTop: 8, lineHeight: 1.6 }}>Deadline: 15 May 2026. Use your name as reference.</p>
+                <p style={{ fontSize: 12, color: MUTED, marginTop: 10, lineHeight: 1.6 }}>Deadline: 15 May 2026. Use your name as reference.</p>
               </div>
             )}
 
             <GiftBox />
-            <Divider my={24} />
-            <p style={{ fontSize: 12, color: MUTED + "88", letterSpacing: "0.1em" }}>MARIAM @ 50 · 08/08/2026</p>
+            <Divider my={26} />
+            <p style={{ fontSize: 13, color: MUTED + "88", letterSpacing: "0.12em" }}>MARIAM @ 50 &middot; 08/08/2026</p>
           </Card>
         </div>
       </Page>
     );
   }
 
-  // ── Standard done ────────────────────────────────────────
   const msgs = {
     default:            { emoji: "✨", title: "Thank You",         body: "Your response has been received. We look forward to celebrating with you!" },
     not_attending:      { emoji: "🌸", title: "Thank You",         body: "Thank you for your response. You will be missed!" },
-    gift:         { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for your gift!" },
+    gift:               { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for your gift!" },
     asoebi_paid:        { emoji: "👗", title: "Wonderful!",        body: "Thank you! We cannot wait to see you in your beautiful attire." },
     asoebi_no:          { emoji: "💙", title: "See You There!",    body: null },
     asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your payment and we cannot wait to see you!" },
@@ -957,52 +1004,53 @@ function DoneView(props) {
     <Page>
       <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Card className="fade-up" style={{ textAlign: "center" }}>
-          <div style={{ fontSize: 44, marginBottom: 20 }}>{m.emoji}</div>
-          <Ornament size={60} color={GOLD + "88"} />
-          <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 32, fontWeight: 400, color: NAVY, margin: "20px 0 12px" }}>{m.title}</h2>
+          <NavyBadge label="Mariam @ 50 · 08/08/2026" />
+          <div style={{ fontSize: 48, marginBottom: 20 }}>{m.emoji}</div>
+          <Ornament size={64} color={GOLD + "88"} />
+          <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 36, fontWeight: 400, color: NAVY, margin: "22px 0 14px" }}>{m.title}</h2>
 
           {type === "asoebi_no" ? (
-            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.8, fontWeight: 300 }}>
+            <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.85, fontWeight: 300 }}>
               Thank you. We cannot wait to see you.<br />
               Dress code: <strong style={{ fontWeight: 700, color: NAVY }}>Navy Blue</strong> and <strong style={{ fontWeight: 700, color: GOLD }}>Gold</strong>
             </p>
           ) : (
-            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.8, fontWeight: 300 }}>{m.body}</p>
+            <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.85, fontWeight: 300 }}>{m.body}</p>
           )}
 
           {props.asoItem === "cap" && (type === "asoebi_items_now" || type === "asoebi_items_later") && (
-            <div style={{ background: "#fff8e1", border: "0.5px solid #f59e0b88", borderRadius: 10, padding: "12px 16px", marginTop: 16, textAlign: "left", display: "flex", gap: 10 }}>
-              <span style={{ fontSize: 16 }}>👒</span>
-              <p style={{ fontSize: 13, color: NAVY, lineHeight: 1.6, fontWeight: 300 }}>
+            <div style={{ background: "#fff8e1", border: "0.5px solid #f59e0b88", borderRadius: 10, padding: "13px 17px", marginTop: 18, textAlign: "left", display: "flex", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>👒</span>
+              <p style={{ fontSize: 14, color: NAVY, lineHeight: 1.65, fontWeight: 300 }}>
                 Reminder: cap buyers should <strong style={{ fontWeight: 600 }}>wear white</strong> on the day.
               </p>
             </div>
           )}
 
           {type === "asoebi_items_later" && (
-            <div style={{ background: CREAM2, border: "0.5px solid " + GOLD + "55", borderRadius: 12, padding: "16px 20px", marginTop: 16, textAlign: "left" }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 10 }}>Bank Details</div>
+            <div style={{ background: NAVY + "06", border: "0.5px solid " + NAVY + "18", borderRadius: 12, padding: "18px 20px", marginTop: 18, textAlign: "left" }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: NAVY, fontWeight: 600, marginBottom: 12 }}>Bank Details</div>
               {[["Bank", BANK_NAME], ["Account Name", ACCOUNT_NAME], ["Sort Code", SORT_CODE], ["Account Number", ACCOUNT_NO]].map(function(row) {
                 return (
-                  <div key={row[0]} style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "0.5px solid " + GOLD + "22" }}>
-                    <span style={{ fontSize: 12, color: MUTED }}>{row[0]}</span>
-                    <span style={{ fontSize: 12, fontWeight: 500, color: NAVY }}>{row[1]}</span>
+                  <div key={row[0]} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: "0.5px solid " + NAVY + "12" }}>
+                    <span style={{ fontSize: 13, color: MUTED }}>{row[0]}</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: NAVY }}>{row[1]}</span>
                   </div>
                 );
               })}
-              <p style={{ fontSize: 11, color: MUTED, marginTop: 8, lineHeight: 1.6 }}>Deadline: 15 May 2026. Use your name as reference.</p>
+              <p style={{ fontSize: 12, color: MUTED, marginTop: 10, lineHeight: 1.6 }}>Deadline: 15 May 2026. Use your name as reference.</p>
             </div>
           )}
 
           {showGift && (
             <>
-              <Divider my={24} />
+              <Divider my={26} />
               <GiftBox />
             </>
           )}
 
-          <Divider my={24} />
-          <p style={{ fontSize: 12, color: MUTED + "88", letterSpacing: "0.1em" }}>MARIAM @ 50 · 08/08/2026</p>
+          <Divider my={26} />
+          <p style={{ fontSize: 13, color: MUTED + "88", letterSpacing: "0.12em" }}>MARIAM @ 50 &middot; 08/08/2026</p>
         </Card>
       </div>
     </Page>
@@ -1016,16 +1064,15 @@ function DoneView(props) {
 export default function App() {
   useEffect(function() { injectStyles(); }, []);
 
-  const [view,         setView]         = useState("home");
-  const [doneType,     setDoneType]     = useState("default");
+  const [view,          setView]          = useState("home");
+  const [doneType,      setDoneType]      = useState("default");
   const [doneGroupData, setDoneGroupData] = useState(null);
-  const [asoItem,      setAsoItem]      = useState(null);
-  const [saving,       setSaving]       = useState(false);
-  const [groupErr,     setGroupErr]     = useState("");
-  const [name,         setName]         = useState("");
-  const [email,        setEmail]        = useState("");
+  const [asoItem,       setAsoItem]       = useState(null);
+  const [saving,        setSaving]        = useState(false);
+  const [groupErr,      setGroupErr]      = useState("");
+  const [name,          setName]          = useState("");
+  const [email,         setEmail]         = useState("");
 
-  // ── Save helper for non-group flows ─────────────────────
   async function save(payload) {
     setSaving(true);
     try {
@@ -1037,7 +1084,6 @@ export default function App() {
     }
   }
 
-  // ── Non-group handlers ───────────────────────────────────
   async function handleContribYes() {
     await save({ attending: false, contribution_choice: "yes" });
     window.open(MONZO_LINK, "_blank");
@@ -1062,11 +1108,9 @@ export default function App() {
     setView("done");
   }
 
-  // ── Group handler ────────────────────────────────────────
   async function handleGroupConfirm(leadAso, groupMembers, payMethod) {
     setSaving(true);
     setGroupErr("");
-    // Generate UUID client-side so we don't need SELECT permission to get it back
     const guestId = generateUUID();
     try {
       await dbInsert({
@@ -1090,33 +1134,14 @@ export default function App() {
     }
   }
 
-  // ── Routing ──────────────────────────────────────────────
-  if (view === "home") {
-    return <HomeView onStart={function() { setView("details"); }} />;
-  }
-  if (view === "details") {
-    return <DetailsView onNext={function(n, em) { setName(n); setEmail(em); setView("q1"); }} onBack={function() { setView("home"); }} />;
-  }
-  if (view === "q1") {
-    return <Q1View onYes={function() { setView("group_question"); }} onNo={function() { setView("contribution"); }} onBack={function() { setView("details"); }} />;
-  }
-  if (view === "contribution") {
-    return <ContributionView onYes={handleContribYes} onNo={handleContribNo} onBack={function() { setView("q1"); }} saving={saving} />;
-  }
-  if (view === "group_question") {
-    return <GroupQuestionView onJustMe={function() { setView("q2"); }} onFamily={function() { setView("group_build"); }} onBack={function() { setView("q1"); }} />;
-  }
-  if (view === "q2") {
-    return <Q2View onYes={function() { setView("asoebi_items"); }} onYesPaid={handleQ2YesPaid} onNo={handleQ2No} onBack={function() { setView("group_question"); }} />;
-  }
-  if (view === "asoebi_items") {
-    return <AsoebItems onConfirm={handleAsoebItem} onBack={function() { setView("q2"); }} saving={saving} />;
-  }
-  if (view === "group_build") {
-    return <GroupBuildView leadName={name} onConfirm={handleGroupConfirm} onBack={function() { setView("group_question"); }} saving={saving} errMsg={groupErr} />;
-  }
-  if (view === "done") {
-    return <DoneView type={doneType} asoItem={asoItem} leadName={name} groupData={doneGroupData} />;
-  }
+  if (view === "home")           return <HomeView onStart={function() { setView("details"); }} />;
+  if (view === "details")        return <DetailsView onNext={function(n, em) { setName(n); setEmail(em); setView("q1"); }} onBack={function() { setView("home"); }} />;
+  if (view === "q1")             return <Q1View onYes={function() { setView("group_question"); }} onNo={function() { setView("contribution"); }} onBack={function() { setView("details"); }} />;
+  if (view === "contribution")   return <ContributionView onYes={handleContribYes} onNo={handleContribNo} onBack={function() { setView("q1"); }} saving={saving} />;
+  if (view === "group_question") return <GroupQuestionView onJustMe={function() { setView("q2"); }} onFamily={function() { setView("group_build"); }} onBack={function() { setView("q1"); }} />;
+  if (view === "q2")             return <Q2View onYes={function() { setView("asoebi_items"); }} onYesPaid={handleQ2YesPaid} onNo={handleQ2No} onBack={function() { setView("group_question"); }} />;
+  if (view === "asoebi_items")   return <AsoebItems onConfirm={handleAsoebItem} onBack={function() { setView("q2"); }} saving={saving} />;
+  if (view === "group_build")    return <GroupBuildView leadName={name} onConfirm={handleGroupConfirm} onBack={function() { setView("group_question"); }} saving={saving} errMsg={groupErr} />;
+  if (view === "done")           return <DoneView type={doneType} asoItem={asoItem} leadName={name} groupData={doneGroupData} />;
   return null;
 }
