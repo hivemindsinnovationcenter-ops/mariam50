@@ -944,7 +944,7 @@ function DoneView(props) {
   const msgs = {
     default:            { emoji: "✨", title: "Thank You",         body: "Your response has been received. We look forward to celebrating with you!" },
     not_attending:      { emoji: "🌸", title: "Thank You",         body: "Thank you for your response. You will be missed!" },
-    gift:         { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for gifting!" },
+    gift:         { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for your gift!" },
     asoebi_paid:        { emoji: "👗", title: "Wonderful!",        body: "Thank you! We cannot wait to see you in your beautiful attire." },
     asoebi_no:          { emoji: "💙", title: "See You There!",    body: null },
     asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your payment and we cannot wait to see you!" },
