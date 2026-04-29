@@ -497,12 +497,12 @@ function ContributionView(props) {
             <div style={{ fontSize: 36, marginBottom: 12 }}>🌸</div>
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 26, fontWeight: 400, color: NAVY, marginBottom: 10 }}>We Are So Sorry</h2>
             <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, fontWeight: 300 }}>
-              We are so sorry you cannot make it.<br />Would you like to contribute?
+              We are so sorry you cannot make it.<br />Would you like to gift?
             </p>
           </div>
           <Divider my={20} />
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
-            <ChoiceCard label="Yes, I would like to contribute" icon="💛" selected={choice === "yes"} onClick={function() { setChoice("yes"); }} />
+            <ChoiceCard label="Yes, I would like to gift" icon="💛" selected={choice === "yes"} onClick={function() { setChoice("yes"); }} />
             <ChoiceCard label="No, thank you"                    icon="🤍" selected={choice === "no"}  onClick={function() { setChoice("no");  }} />
           </div>
           <div style={{ display: "flex", gap: 12 }}>
@@ -944,7 +944,7 @@ function DoneView(props) {
   const msgs = {
     default:            { emoji: "✨", title: "Thank You",         body: "Your response has been received. We look forward to celebrating with you!" },
     not_attending:      { emoji: "🌸", title: "Thank You",         body: "Thank you for your response. You will be missed!" },
-    contribute:         { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for contributing!" },
+    gift:         { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for contributing!" },
     asoebi_paid:        { emoji: "👗", title: "Wonderful!",        body: "Thank you! We cannot wait to see you in your beautiful attire." },
     asoebi_no:          { emoji: "💙", title: "See You There!",    body: null },
     asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your payment and we cannot wait to see you!" },
@@ -1041,7 +1041,7 @@ export default function App() {
   async function handleContribYes() {
     await save({ attending: false, contribution_choice: "yes" });
     window.open(MONZO_LINK, "_blank");
-    setDoneType("contribute"); setView("done");
+    setDoneType("gift"); setView("done");
   }
   async function handleContribNo() {
     await save({ attending: false, contribution_choice: "no" });
