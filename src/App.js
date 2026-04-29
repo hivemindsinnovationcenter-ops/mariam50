@@ -337,7 +337,7 @@ function PaySection(props) {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: payMethod === "now" ? 12 : 0 }}>
           <div>
             <div style={{ fontSize: 14, fontWeight: 500, color: NAVY }}>Pay Now</div>
-            <div style={{ fontSize: 11, color: MUTED, marginTop: 2 }}>via Monzo link</div>
+            <div style={{ fontSize: 11, color: MUTED, marginTop: 2 }}>via link</div>
           </div>
           <div style={{ width: 16, height: 16, borderRadius: "50%", border: "1.5px solid " + (payMethod === "now" ? GOLD : NAVY + "33"), background: payMethod === "now" ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
             {payMethod === "now" && <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#fff" }} />}
@@ -345,7 +345,7 @@ function PaySection(props) {
         </div>
         {payMethod === "now" && (
           <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "9px 18px", fontFamily: "'Jost',sans-serif" }}>
-            Open Monzo
+            Open link
           </a>
         )}
       </div>
@@ -850,10 +850,10 @@ function GiftBox() {
     <div style={{ background: GOLD + "08", border: "0.5px solid " + GOLD + "44", borderRadius: 12, padding: "18px 20px", textAlign: "left" }}>
       <div style={{ fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: GOLD, fontWeight: 500, marginBottom: 6 }}>Would you like to give a gift?</div>
       <p style={{ fontSize: 13, color: MUTED, lineHeight: 1.7, fontWeight: 300, marginBottom: 12 }}>
-        If you would like to bless Mariam with a monetary gift, you can send it via Monzo. Your generosity is so appreciated!
+        If you would like to bless Mariam with a monetary gift, you can send it via the link below. Your generosity is so appreciated!
       </p>
       <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "9px 18px", fontFamily: "'Jost',sans-serif" }}>
-        Send a Gift via Monzo
+        Send a Gift
       </a>
     </div>
   );
@@ -879,7 +879,7 @@ function DoneView(props) {
             <Ornament size={60} color={GOLD + "88"} />
             <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 32, fontWeight: 400, color: NAVY, margin: "20px 0 8px" }}>Group Confirmed!</h2>
             <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.8, fontWeight: 300, marginBottom: 24 }}>
-              We cannot wait to celebrate with your whole party!
+              We cannot wait to see you!
             </p>
 
             {/* Party list */}
@@ -947,7 +947,7 @@ function DoneView(props) {
     contribute:         { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for contributing!" },
     asoebi_paid:        { emoji: "👗", title: "Wonderful!",        body: "Thank you! We cannot wait to see you in your beautiful attire." },
     asoebi_no:          { emoji: "💙", title: "See You There!",    body: null },
-    asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your Monzo payment and we cannot wait to see you!" },
+    asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your payment and we cannot wait to see you!" },
     asoebi_items_later: { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Please send your bank transfer by 15 May 2026." },
   };
   const m = msgs[type] || msgs.default;
