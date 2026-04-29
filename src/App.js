@@ -13,19 +13,25 @@ var ACCOUNT_NO   = "06775165";
 var DEADLINE      = new Date("2026-05-15T23:59:59");
 // ============================================================
 
+function generateUUID() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0;
+    var v = c === "x" ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
 async function dbInsert(payload) {
   const r = await fetch(SUPABASE_URL + "/rest/v1/guests", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "apikey": SUPABASE_ANON,
-      "Prefer": "return=representation",
+      "Prefer": "return=minimal",
     },
     body: JSON.stringify(payload),
   });
   if (!r.ok) throw new Error(await r.text());
-  const data = await r.json();
-  return data[0];
 }
 
 async function dbCheckEmail(email) {
@@ -815,6 +821,12 @@ function GroupBuildView(props) {
             </>
           )}
 
+          {props.errMsg && (
+            <div style={{ background: "#fef2f2", border: "0.5px solid #fca5a5", borderRadius: 8, padding: "10px 14px", marginBottom: 12, fontSize: 13, color: "#991b1b" }}>
+              {props.errMsg}
+            </div>
+          )}
+
           <div style={{ display: "flex", gap: 12 }}>
             <Btn variant="ghost" onClick={props.onBack} style={{ flex: 1 }}>Back</Btn>
             <Btn disabled={!canConfirm || props.saving} onClick={handleConfirm} style={{ flex: 2 }}>
@@ -1009,6 +1021,7 @@ export default function App() {
   const [doneGroupData, setDoneGroupData] = useState(null);
   const [asoItem,      setAsoItem]      = useState(null);
   const [saving,       setSaving]       = useState(false);
+  const [groupErr,     setGroupErr]     = useState("");
   const [name,         setName]         = useState("");
   const [email,        setEmail]        = useState("");
 
@@ -1052,8 +1065,12 @@ export default function App() {
   // ── Group handler ────────────────────────────────────────
   async function handleGroupConfirm(leadAso, groupMembers, payMethod) {
     setSaving(true);
+    setGroupErr("");
+    // Generate UUID client-side so we don't need SELECT permission to get it back
+    const guestId = generateUUID();
     try {
-      const guest = await dbInsert({
+      await dbInsert({
+        id:             guestId,
         full_name:      name,
         email:          email || null,
         attending:      true,
@@ -1061,12 +1078,13 @@ export default function App() {
         asoebi_item:    leadAso.wantsAsoebi ? leadAso.item : null,
         payment_status: leadAso.wantsAsoebi ? "pending" : null,
       });
-      await dbInsertMembers(guest.id, groupMembers);
+      await dbInsertMembers(guestId, groupMembers);
       setDoneGroupData({ lead: leadAso, members: groupMembers, payMethod: payMethod });
       setDoneType("group_done");
       setView("done");
     } catch (e) {
       console.error(e);
+      setGroupErr("Something went wrong saving your RSVP. Please try again.");
     } finally {
       setSaving(false);
     }
@@ -1095,7 +1113,7 @@ export default function App() {
     return <AsoebItems onConfirm={handleAsoebItem} onBack={function() { setView("q2"); }} saving={saving} />;
   }
   if (view === "group_build") {
-    return <GroupBuildView leadName={name} onConfirm={handleGroupConfirm} onBack={function() { setView("group_question"); }} saving={saving} />;
+    return <GroupBuildView leadName={name} onConfirm={handleGroupConfirm} onBack={function() { setView("group_question"); }} saving={saving} errMsg={groupErr} />;
   }
   if (view === "done") {
     return <DoneView type={doneType} asoItem={asoItem} leadName={name} groupData={doneGroupData} />;
