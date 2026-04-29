@@ -175,27 +175,56 @@ function Card(props) {
 
 function Btn(props) {
   const [hov, setHov] = useState(false);
+  const [pressed, setPressed] = useState(false);
   const v = props.variant || "primary";
   const disabled = !!props.disabled;
   const base = {
-    fontFamily: "'Jost',sans-serif", fontWeight: 500, fontSize: 14,
-    letterSpacing: "0.14em", textTransform: "uppercase", padding: "15px 34px",
-    borderRadius: 4, cursor: disabled ? "not-allowed" : "pointer", border: "none",
-    transition: "all .3s ease", display: "inline-block",
-    width: props.full ? "100%" : "auto", opacity: disabled ? 0.55 : 1,
+    fontFamily: "'Jost',sans-serif", fontWeight: 500, fontSize: 13,
+    letterSpacing: "0.16em", textTransform: "uppercase", padding: "15px 36px",
+    borderRadius: 6, cursor: disabled ? "not-allowed" : "pointer",
+    transition: "all .25s ease", display: "inline-flex",
+    alignItems: "center", justifyContent: "center", gap: 8,
+    width: props.full ? "100%" : "auto", opacity: disabled ? 0.45 : 1,
+    transform: pressed && !disabled ? "translateY(1px)" : hov && !disabled ? "translateY(-2px)" : "none",
+    border: "none",
+    position: "relative", overflow: "hidden",
   };
   const variants = {
-    primary: { background: hov ? GOLD2 : GOLD, color: "#fff", boxShadow: hov ? "0 6px 24px " + GOLD + "55" : "0 2px 12px " + GOLD + "30", transform: hov ? "translateY(-1px)" : "none" },
-    navy:    { background: hov ? NAVY2 : NAVY, color: "#fff", boxShadow: hov ? "0 6px 24px " + NAVY + "55" : "0 2px 12px " + NAVY + "30", transform: hov ? "translateY(-1px)" : "none" },
-    outline: { background: "transparent", color: NAVY, border: "0.5px solid " + NAVY + "66", transform: hov && !disabled ? "translateY(-1px)" : "none" },
-    ghost:   { background: hov ? CREAM2 : "transparent", color: MUTED, border: "0.5px solid " + MUTED + "44" },
+    primary: {
+      background: hov ? GOLD2 : GOLD,
+      color: "#fff",
+      boxShadow: hov
+        ? "0 8px 28px " + GOLD + "66, 0 2px 8px " + GOLD + "44, inset 0 1px 0 rgba(255,255,255,0.15)"
+        : "0 4px 16px " + GOLD + "44, 0 1px 4px " + GOLD + "33, inset 0 1px 0 rgba(255,255,255,0.12)",
+    },
+    navy: {
+      background: hov ? NAVY2 : NAVY,
+      color: "#fff",
+      boxShadow: hov
+        ? "0 8px 28px " + NAVY + "55, 0 2px 8px " + NAVY + "33, inset 0 1px 0 rgba(255,255,255,0.08)"
+        : "0 4px 16px " + NAVY + "33, 0 1px 4px " + NAVY + "22, inset 0 1px 0 rgba(255,255,255,0.06)",
+    },
+    outline: {
+      background: hov ? NAVY + "08" : "transparent",
+      color: NAVY,
+      border: "1.5px solid " + NAVY + "88",
+      boxShadow: hov ? "0 4px 14px " + NAVY + "14" : "none",
+    },
+    ghost: {
+      background: hov ? CREAM2 : "#f8f5ee",
+      color: NAVY + "bb",
+      border: "1px solid " + NAVY + "22",
+      boxShadow: hov ? "0 2px 8px " + NAVY + "10" : "inset 0 1px 3px " + NAVY + "08",
+    },
   };
   return (
     <button
       style={Object.assign({}, base, variants[v] || variants.primary, props.style || {})}
       onClick={props.onClick} disabled={disabled}
       onMouseEnter={function() { setHov(true); }}
-      onMouseLeave={function() { setHov(false); }}
+      onMouseLeave={function() { setHov(false); setPressed(false); }}
+      onMouseDown={function() { setPressed(true); }}
+      onMouseUp={function() { setPressed(false); }}
     >
       {props.children}
     </button>
@@ -862,7 +891,7 @@ function GroupBuildView(props) {
           </div>
 
           {members.length < 9 && (
-            <button onClick={addMember} style={{ width: "100%", padding: "13px", border: "0.5px dashed " + NAVY + "44", borderRadius: 10, background: "transparent", color: NAVY, fontSize: 14, fontWeight: 500, cursor: "pointer", fontFamily: "'Jost',sans-serif", marginBottom: 14 }}>
+            <button onClick={addMember} style={{ width: "100%", padding: "13px", border: "1.5px dashed " + NAVY + "33", borderRadius: 10, background: NAVY + "03", color: NAVY + "99", fontSize: 14, fontWeight: 500, cursor: "pointer", fontFamily: "'Jost',sans-serif", marginBottom: 14, letterSpacing: "0.06em", transition: "all .2s" }}>
               + Add another person
             </button>
           )}
