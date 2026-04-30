@@ -628,7 +628,7 @@ function GroupQuestionView(props) {
             />
             <ChoiceCard
               label="Me and family / guests"
-              sublabel="I'm bringing others -- I can set their asoebi too"
+              sublabel="I'm bringing others"
               icon="👨‍👩‍👧‍👦"
               selected={choice === "family"}
               onClick={function() { setChoice("family"); }}
