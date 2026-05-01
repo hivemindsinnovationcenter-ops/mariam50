@@ -460,36 +460,46 @@ function PaySection(props) {
 function HomeView(props) {
   return (
     <Page>
-      <div style={{ textAlign: "center", padding: "20px 24px", width: "100%", maxWidth: 580 }}>
+      <div style={{ textAlign: "center", padding: "32px 24px", width: "100%", maxWidth: 560 }}>
 
         {/* Invited badge */}
         <div className="fade-up s1" style={{
           background: NAVY, borderRadius: 12,
-          padding: "14px 28px", marginBottom: 36,
+          padding: "12px 28px", marginBottom: 32,
           display: "inline-block",
         }}>
-          <div style={{ fontSize: 12, letterSpacing: "0.28em", textTransform: "uppercase", color: GOLD, fontWeight: 500 }}>
+          <div style={{ fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: GOLD, fontWeight: 500 }}>
             You Are Cordially Invited
           </div>
         </div>
 
-        <div className="fade-up s2"><Ornament size={88} color={GOLD + "cc"} /></div>
-        <h1 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(60px,14vw,96px)", fontWeight: 300, color: NAVY, lineHeight: 1.0, margin: "26px 0 6px" }}>Mariam</h1>
-        <h2 className="fade-up s3" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "clamp(32px,8vw,52px)", fontWeight: 400, fontStyle: "italic", color: GOLD, marginBottom: 10 }}>@ 50</h2>
-        <div className="fade-up s4" style={{ fontSize: 13, letterSpacing: "0.22em", textTransform: "uppercase", color: MUTED, marginBottom: 36 }}>08 August 2026</div>
+        {/* Invite image */}
+        <div className="fade-up s2" style={{
+          borderRadius: 16,
+          overflow: "hidden",
+          boxShadow: "0 12px 60px " + NAVY + "33, 0 4px 20px " + NAVY + "22, 0 0 0 1px " + GOLD + "33",
+          marginBottom: 36,
+          border: "1px solid " + GOLD + "44",
+        }}>
+          <img
+            src="/invite.png"
+            alt="Mariam's 50th Birthday Invitation"
+            style={{ width: "100%", display: "block" }}
+          />
+        </div>
 
-        <div className="fade-up s4"><Divider my={0} /></div>
+        <div className="fade-up s3"><Divider my={0} /></div>
 
-        <p className="fade-up s5" style={{ fontSize: 16, color: MUTED, fontWeight: 300, lineHeight: 1.8, margin: "28px 0 36px" }}>
+        <p className="fade-up s4" style={{ fontSize: 15, color: MUTED, fontWeight: 300, lineHeight: 1.8, margin: "24px 0 28px" }}>
           Please click below to RSVP
         </p>
-        <div className="fade-up s6">
+        <div className="fade-up s5">
           <Btn onClick={props.onStart} style={{ minWidth: 220, fontSize: 13, letterSpacing: "0.2em", padding: "17px 44px" }}>
             RSVP Here
           </Btn>
         </div>
 
-        <div className="fade-up s6" style={{ marginTop: 48, borderTop: "0.5px solid " + GOLD + "33", paddingTop: 16 }}>
+        <div className="fade-up s6" style={{ marginTop: 36, borderTop: "0.5px solid " + GOLD + "33", paddingTop: 16 }}>
           <p style={{ fontSize: 12, color: MUTED + "88", letterSpacing: "0.12em" }}>MARIAM @ 50 &middot; 08/08/2026</p>
         </div>
       </div>
