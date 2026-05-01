@@ -94,9 +94,7 @@ function injectStyles() {
   document.head.appendChild(link);
   const s = document.createElement("style");
   s.id = "m50-styles";
-  // Tiny diamond trellis SVG pattern at ~4% opacity for a subtle luxury texture
   const pattern = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M24 3 L45 24 L24 45 L3 24 Z' fill='none' stroke='rgba(12%2C25%2C41%2C0.055)' stroke-width='0.6'/%3E%3C/svg%3E";
-
   s.textContent =
     "*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}" +
     "html,body,#root{min-height:100vh}" +
@@ -148,8 +146,7 @@ function Page(props) {
     <div style={{
       minHeight: "100vh",
       background: "transparent",
-      backgroundImage:
-        "radial-gradient(ellipse 70% 60% at 50% 40%,rgba(253,251,245,0.95) 0%,transparent 100%)",
+      backgroundImage: "radial-gradient(ellipse 70% 60% at 50% 40%,rgba(253,251,245,0.95) 0%,transparent 100%)",
       display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
     }}>
       {props.children}
@@ -186,33 +183,28 @@ function Btn(props) {
     alignItems: "center", justifyContent: "center", gap: 8,
     width: props.full ? "100%" : "auto", opacity: disabled ? 0.45 : 1,
     transform: pressed && !disabled ? "translateY(1px)" : hov && !disabled ? "translateY(-2px)" : "none",
-    border: "none",
-    position: "relative", overflow: "hidden",
+    border: "none", position: "relative", overflow: "hidden",
   };
   const variants = {
     primary: {
-      background: hov ? GOLD2 : GOLD,
-      color: "#fff",
+      background: hov ? GOLD2 : GOLD, color: "#fff",
       boxShadow: hov
         ? "0 8px 28px " + GOLD + "66, 0 2px 8px " + GOLD + "44, inset 0 1px 0 rgba(255,255,255,0.15)"
         : "0 4px 16px " + GOLD + "44, 0 1px 4px " + GOLD + "33, inset 0 1px 0 rgba(255,255,255,0.12)",
     },
     navy: {
-      background: hov ? NAVY2 : NAVY,
-      color: "#fff",
+      background: hov ? NAVY2 : NAVY, color: "#fff",
       boxShadow: hov
         ? "0 8px 28px " + NAVY + "55, 0 2px 8px " + NAVY + "33, inset 0 1px 0 rgba(255,255,255,0.08)"
         : "0 4px 16px " + NAVY + "33, 0 1px 4px " + NAVY + "22, inset 0 1px 0 rgba(255,255,255,0.06)",
     },
     outline: {
-      background: hov ? NAVY + "08" : "transparent",
-      color: NAVY,
+      background: hov ? NAVY + "08" : "transparent", color: NAVY,
       border: "1.5px solid " + NAVY + "88",
       boxShadow: hov ? "0 4px 14px " + NAVY + "14" : "none",
     },
     ghost: {
-      background: hov ? CREAM2 : "#f8f5ee",
-      color: NAVY + "bb",
+      background: hov ? CREAM2 : "#f8f5ee", color: NAVY + "bb",
       border: "1px solid " + NAVY + "22",
       boxShadow: hov ? "0 2px 8px " + NAVY + "10" : "inset 0 1px 3px " + NAVY + "08",
     },
@@ -291,8 +283,7 @@ function Progress(props) {
       {Array.from({ length: props.total }).map(function(_, i) {
         return (
           <div key={i} style={{
-            width: i === props.step ? 28 : 7,
-            height: 7, borderRadius: 4,
+            width: i === props.step ? 28 : 7, height: 7, borderRadius: 4,
             background: i < props.step ? NAVY : i === props.step ? GOLD : NAVY + "18",
             transition: "all .35s ease",
           }} />
@@ -302,15 +293,11 @@ function Progress(props) {
   );
 }
 
-// Navy top strip for each card
 function NavyBadge(props) {
   return (
     <div style={{
-      background: NAVY,
-      borderRadius: "12px 12px 0 0",
-      padding: "14px 20px",
-      textAlign: "center",
-      marginTop: -44, marginLeft: -48, marginRight: -48, marginBottom: 32,
+      background: NAVY, borderRadius: "12px 12px 0 0", padding: "14px 20px",
+      textAlign: "center", marginTop: -44, marginLeft: -48, marginRight: -48, marginBottom: 32,
       borderBottom: "1px solid " + GOLD + "33",
     }}>
       <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: GOLD, fontWeight: 500 }}>
@@ -329,6 +316,24 @@ function EventHeader(props) {
       {props.subtitle && (
         <p style={{ fontSize: 15, color: MUTED, marginTop: 12, fontWeight: 300, lineHeight: 1.6 }}>{props.subtitle}</p>
       )}
+    </div>
+  );
+}
+
+function DressCode() {
+  return (
+    <div style={{ background: NAVY + "06", border: "0.5px solid " + NAVY + "18", borderRadius: 10, padding: "13px 18px", textAlign: "left" }}>
+      <div style={{ fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", color: NAVY, fontWeight: 600, marginBottom: 10 }}>Dress Code</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        <div style={{ fontSize: 14, color: MUTED, fontWeight: 300 }}>
+          <strong style={{ fontWeight: 600, color: NAVY }}>Women:</strong>{" "}
+          <strong style={{ fontWeight: 600, color: NAVY }}>Navy Blue</strong> &amp; <strong style={{ fontWeight: 600, color: GOLD }}>Gold</strong>
+        </div>
+        <div style={{ fontSize: 14, color: MUTED, fontWeight: 300 }}>
+          <strong style={{ fontWeight: 600, color: NAVY }}>Men:</strong>{" "}
+          <strong style={{ fontWeight: 600, color: NAVY }}>White</strong>
+        </div>
+      </div>
     </div>
   );
 }
@@ -366,14 +371,11 @@ function TimeBox(props) {
   );
 }
 
-// ── Pay section ────────────────────────────────────────────
-
 function PaySection(props) {
   const time = useCountdown();
   const { payMethod, setPayMethod, total, isCap } = props;
   return (
     <>
-      {/* Countdown in navy */}
       <div style={{ background: NAVY, borderRadius: 12, padding: "18px 20px", marginBottom: 14, textAlign: "center" }}>
         <div style={{ fontSize: 10, letterSpacing: "0.22em", textTransform: "uppercase", color: GOLD, marginBottom: 14, fontWeight: 500 }}>
           Payment Deadline &mdash; 15 May 2026
@@ -393,7 +395,6 @@ function PaySection(props) {
         )}
       </div>
 
-      {/* Pay Now */}
       <div onClick={function() { setPayMethod("now"); }} style={{
         border: (payMethod === "now" ? "1.5px" : "0.5px") + " solid " + (payMethod === "now" ? GOLD : NAVY + "22"),
         borderLeft: payMethod === "now" ? "4px solid " + GOLD : "4px solid transparent",
@@ -416,7 +417,6 @@ function PaySection(props) {
         )}
       </div>
 
-      {/* Pay Later */}
       <div onClick={function() { setPayMethod("later"); }} style={{
         border: (payMethod === "later" ? "1.5px" : "0.5px") + " solid " + (payMethod === "later" ? NAVY + "66" : NAVY + "22"),
         borderLeft: payMethod === "later" ? "4px solid " + NAVY : "4px solid transparent",
@@ -454,7 +454,7 @@ function PaySection(props) {
 }
 
 // ════════════════════════════════════════════════════════════
-//  RSVP VIEWS
+//  VIEWS
 // ════════════════════════════════════════════════════════════
 
 function HomeView(props) {
@@ -462,30 +462,18 @@ function HomeView(props) {
     <Page>
       <div style={{ textAlign: "center", padding: "32px 24px", width: "100%", maxWidth: 560 }}>
 
-        {/* Invited badge */}
-        <div className="fade-up s1" style={{
-          background: NAVY, borderRadius: 12,
-          padding: "12px 28px", marginBottom: 32,
-          display: "inline-block",
-        }}>
+        <div className="fade-up s1" style={{ background: NAVY, borderRadius: 12, padding: "12px 28px", marginBottom: 32, display: "inline-block" }}>
           <div style={{ fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: GOLD, fontWeight: 500 }}>
             You Are Cordially Invited
           </div>
         </div>
 
-        {/* Invite image */}
         <div className="fade-up s2" style={{
-          borderRadius: 16,
-          overflow: "hidden",
+          borderRadius: 16, overflow: "hidden",
           boxShadow: "0 12px 60px " + NAVY + "33, 0 4px 20px " + NAVY + "22, 0 0 0 1px " + GOLD + "33",
-          marginBottom: 36,
-          border: "1px solid " + GOLD + "44",
+          marginBottom: 36, border: "1px solid " + GOLD + "44",
         }}>
-          <img
-            src="/preview.png"
-            alt="Mariam's 50th Birthday Invitation"
-            style={{ width: "100%", display: "block" }}
-          />
+          <img src="/preview.png" alt="Mariam's 50th Birthday Invitation" style={{ width: "100%", display: "block" }} />
         </div>
 
         <div className="fade-up s3"><Divider my={0} /></div>
@@ -586,38 +574,6 @@ function Q1View(props) {
   );
 }
 
-function ContributionView(props) {
-  const [choice, setChoice] = useState(null);
-  return (
-    <Page>
-      <div style={{ padding: "24px 16px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <Progress step={2} total={3} />
-        <Card className="fade-up">
-          <NavyBadge label="Gift" />
-          <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <div style={{ fontSize: 40, marginBottom: 14 }}>🌸</div>
-            <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 30, fontWeight: 400, color: NAVY, marginBottom: 12 }}>We Are So Sorry</h2>
-            <p style={{ fontSize: 15, color: MUTED, lineHeight: 1.75, fontWeight: 300 }}>
-              We are so sorry you cannot make it.<br />Would you like to gift?
-            </p>
-          </div>
-          <Divider my={22} />
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 26 }}>
-            <ChoiceCard label="Yes, I would like to gift" icon="💛" selected={choice === "yes"} onClick={function() { setChoice("yes"); }} />
-            <ChoiceCard label="No, thank you"             icon="🤍" selected={choice === "no"}  onClick={function() { setChoice("no");  }} />
-          </div>
-          <div style={{ display: "flex", gap: 12 }}>
-            <Btn variant="ghost" onClick={props.onBack} style={{ flex: 1 }}>Back</Btn>
-            <Btn disabled={!choice || props.saving} onClick={function() { choice === "yes" ? props.onYes() : props.onNo(); }} style={{ flex: 2 }}>
-              {props.saving ? "Saving..." : "Submit Response"}
-            </Btn>
-          </div>
-        </Card>
-      </div>
-    </Page>
-  );
-}
-
 function GroupQuestionView(props) {
   const [choice, setChoice] = useState(null);
   return (
@@ -629,30 +585,12 @@ function GroupQuestionView(props) {
           <EventHeader subtitle="Are you RSVPing for anyone else?" />
           <Divider my={26} />
           <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
-            <ChoiceCard
-              label="Just me"
-              sublabel="Only RSVPing for myself"
-              icon="🙋"
-              selected={choice === "just_me"}
-              onClick={function() { setChoice("just_me"); }}
-            />
-            <ChoiceCard
-              label="Me and family / guests"
-              sublabel="I'm bringing others -- I can set their asoebi too"
-              icon="👨‍👩‍👧‍👦"
-              selected={choice === "family"}
-              onClick={function() { setChoice("family"); }}
-            />
+            <ChoiceCard label="Just me" sublabel="Only RSVPing for myself" icon="🙋" selected={choice === "just_me"} onClick={function() { setChoice("just_me"); }} />
+            <ChoiceCard label="Me and family / guests" sublabel="I'm bringing others -- I can set their asoebi too" icon="👨‍👩‍👧‍👦" selected={choice === "family"} onClick={function() { setChoice("family"); }} />
           </div>
           <div style={{ display: "flex", gap: 12 }}>
             <Btn variant="ghost" onClick={props.onBack} style={{ flex: 1 }}>Back</Btn>
-            <Btn
-              disabled={!choice}
-              onClick={function() { choice === "just_me" ? props.onJustMe() : props.onFamily(); }}
-              style={{ flex: 2 }}
-            >
-              Continue
-            </Btn>
+            <Btn disabled={!choice} onClick={function() { choice === "just_me" ? props.onJustMe() : props.onFamily(); }} style={{ flex: 2 }}>Continue</Btn>
           </div>
         </Card>
       </div>
@@ -711,10 +649,7 @@ function AsoebItems(props) {
           <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
             {ITEMS.map(function(it) {
               return (
-                <ChoiceCard key={it.key} label={it.label} sublabel={"£" + it.price}
-                  selected={item === it.key}
-                  onClick={function() { setItem(it.key); setPayMethod(null); }}
-                />
+                <ChoiceCard key={it.key} label={it.label} sublabel={"£" + it.price} selected={item === it.key} onClick={function() { setItem(it.key); setPayMethod(null); }} />
               );
             })}
           </div>
@@ -740,10 +675,9 @@ function AsoebItems(props) {
   );
 }
 
-// ── Group build view ───────────────────────────────────────
+// ── Group build ────────────────────────────────────────────
 
 function AsoToggle(props) {
-  // value can be: false (no), "yes" (wants, not paid), "yes_paid" (wants, already paid)
   const opts = [
     { v: "yes",      l: "Yes",  activeColor: GOLD },
     { v: "yes_paid", l: "Paid", activeColor: "#10b981" },
@@ -771,18 +705,13 @@ function AsoToggle(props) {
 }
 
 function PersonCard(props) {
-  const isCap = props.asoItem === "cap";
+  const isCap    = props.asoItem === "cap";
   const wantsAny = props.wantsAsoebi === "yes" || props.wantsAsoebi === "yes_paid";
   const isPaid   = props.wantsAsoebi === "yes_paid";
   const borderColor = isPaid ? "#10b981" : wantsAny ? GOLD : NAVY + "22";
   const bg          = isPaid ? "#10b98108" : wantsAny ? GOLD + "05" : NAVY + "03";
   return (
-    <div style={{
-      border: "0.5px solid " + borderColor,
-      borderLeft: "4px solid " + borderColor,
-      borderRadius: 12, padding: "16px 18px",
-      background: bg, transition: "all .2s",
-    }}>
+    <div style={{ border: "0.5px solid " + borderColor, borderLeft: "4px solid " + borderColor, borderRadius: 12, padding: "16px 18px", background: bg, transition: "all .2s" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
         {props.isLead ? (
           <div style={{ flex: 1 }}>
@@ -791,15 +720,9 @@ function PersonCard(props) {
           </div>
         ) : (
           <>
-            <input
-              value={props.name}
-              onChange={function(e) { props.onNameChange(e.target.value); }}
-              placeholder="Guest full name"
-              style={{ flex: 1, padding: "9px 13px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }}
-            />
-            <button onClick={props.onRemove} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 20, color: MUTED, padding: "0 4px", lineHeight: 1, flexShrink: 0 }}>
-              x
-            </button>
+            <input value={props.name} onChange={function(e) { props.onNameChange(e.target.value); }} placeholder="Guest full name"
+              style={{ flex: 1, padding: "9px 13px", border: "0.5px solid " + NAVY + "33", borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }} />
+            <button onClick={props.onRemove} style={{ background: "none", border: "none", cursor: "pointer", fontSize: 20, color: MUTED, padding: "0 4px", lineHeight: 1, flexShrink: 0 }}>x</button>
           </>
         )}
       </div>
@@ -813,15 +736,10 @@ function PersonCard(props) {
         </div>
       )}
       {wantsAny && (
-        <select
-          value={props.asoItem || ""}
-          onChange={function(e) { props.onItemChange(e.target.value); }}
-          style={{ width: "100%", marginTop: 12, padding: "10px 13px", border: "0.5px solid " + (isPaid ? "#10b98155" : GOLD + "55"), borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }}
-        >
+        <select value={props.asoItem || ""} onChange={function(e) { props.onItemChange(e.target.value); }}
+          style={{ width: "100%", marginTop: 12, padding: "10px 13px", border: "0.5px solid " + (isPaid ? "#10b98155" : GOLD + "55"), borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }}>
           <option value="">Select an item...</option>
-          {ITEMS.map(function(it) {
-            return <option key={it.key} value={it.key}>{it.label} -- £{it.price}</option>;
-          })}
+          {ITEMS.map(function(it) { return <option key={it.key} value={it.key}>{it.label} -- £{it.price}</option>; })}
         </select>
       )}
       {isCap && wantsAny && (
@@ -834,21 +752,18 @@ function PersonCard(props) {
 }
 
 function GroupBuildView(props) {
-  // leadWants: false | "yes" | "yes_paid"
   const [leadWants, setLeadWants] = useState(false);
   const [leadItem,  setLeadItem]  = useState("");
   const [members,   setMembers]   = useState([{ id: 1, name: "", wantsAsoebi: false, asoItem: "" }]);
   const [payMethod, setPayMethod] = useState(null);
 
-  const leadWantsAny  = leadWants === "yes" || leadWants === "yes_paid";
-  const anyUnpaid     = leadWants === "yes" || members.some(function(m) { return m.wantsAsoebi === "yes"; });
+  const leadWantsAny = leadWants === "yes" || leadWants === "yes_paid";
+  const anyUnpaid    = leadWants === "yes" || members.some(function(m) { return m.wantsAsoebi === "yes"; });
 
-  // Total only for unpaid items (paid ones are already settled)
   let total = 0;
   if (leadWants === "yes" && leadItem) total += ITEM_PRICE[leadItem] || 0;
   members.forEach(function(m) { if (m.wantsAsoebi === "yes" && m.asoItem) total += ITEM_PRICE[m.asoItem] || 0; });
 
-  // Paid total (for display)
   let paidTotal = 0;
   if (leadWants === "yes_paid" && leadItem) paidTotal += ITEM_PRICE[leadItem] || 0;
   members.forEach(function(m) { if (m.wantsAsoebi === "yes_paid" && m.asoItem) paidTotal += ITEM_PRICE[m.asoItem] || 0; });
@@ -865,11 +780,9 @@ function GroupBuildView(props) {
   function addMember() {
     setMembers(function(prev) { return prev.concat([{ id: Date.now(), name: "", wantsAsoebi: false, asoItem: "" }]); });
   }
-
   function removeMember(id) {
     setMembers(function(prev) { return prev.filter(function(m) { return m.id !== id; }); });
   }
-
   function updateMember(id, field, value) {
     setMembers(function(prev) {
       return prev.map(function(m) {
@@ -881,7 +794,6 @@ function GroupBuildView(props) {
       });
     });
   }
-
   function handleConfirm() {
     props.onConfirm(
       { wantsAsoebi: leadWants, item: leadWantsAny ? leadItem : null },
@@ -902,22 +814,16 @@ function GroupBuildView(props) {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 14 }}>
-            <PersonCard
-              isLead name={props.leadName}
-              wantsAsoebi={leadWants} asoItem={leadItem}
+            <PersonCard isLead name={props.leadName} wantsAsoebi={leadWants} asoItem={leadItem}
               onToggleAsoebi={function(v) { setLeadWants(v); if (v === false) setLeadItem(""); }}
-              onItemChange={setLeadItem}
-            />
+              onItemChange={setLeadItem} />
             {members.map(function(m) {
               return (
-                <PersonCard
-                  key={m.id} isLead={false}
-                  name={m.name} wantsAsoebi={m.wantsAsoebi} asoItem={m.asoItem}
+                <PersonCard key={m.id} isLead={false} name={m.name} wantsAsoebi={m.wantsAsoebi} asoItem={m.asoItem}
                   onNameChange={function(v) { updateMember(m.id, "name", v); }}
                   onToggleAsoebi={function(v) { updateMember(m.id, "wantsAsoebi", v); }}
                   onItemChange={function(v) { updateMember(m.id, "asoItem", v); }}
-                  onRemove={function() { removeMember(m.id); }}
-                />
+                  onRemove={function() { removeMember(m.id); }} />
               );
             })}
           </div>
@@ -928,7 +834,6 @@ function GroupBuildView(props) {
             </button>
           )}
 
-          {/* Summary: paid vs outstanding */}
           {(total > 0 || paidTotal > 0) && (
             <div style={{ borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
               {paidTotal > 0 && (
@@ -975,22 +880,6 @@ function GroupBuildView(props) {
 //  DONE VIEW
 // ════════════════════════════════════════════════════════════
 
-const ATTENDING_TYPES = ["default", "asoebi_paid", "asoebi_no", "asoebi_items_now", "asoebi_items_later", "group_done"];
-
-function GiftBox() {
-  return (
-    <div style={{ background: NAVY + "06", border: "0.5px solid " + NAVY + "18", borderRadius: 12, padding: "20px 22px", textAlign: "left" }}>
-      <div style={{ fontSize: 12, letterSpacing: "0.15em", textTransform: "uppercase", color: NAVY, fontWeight: 600, marginBottom: 8 }}>Would you like to give a gift?</div>
-      <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75, fontWeight: 300, marginBottom: 14 }}>
-        If you would like to bless Mariam with a monetary gift, you can send it via the link below. Your generosity is so appreciated!
-      </p>
-      <a href={MONZO_LINK} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13, letterSpacing: "0.12em", textTransform: "uppercase", color: GOLD, fontWeight: 500, textDecoration: "none", border: "0.5px solid " + GOLD + "66", borderRadius: 4, padding: "10px 20px", fontFamily: "'Jost',sans-serif" }}>
-        Send a Gift
-      </a>
-    </div>
-  );
-}
-
 function DoneView(props) {
   const type = props.type;
 
@@ -1031,7 +920,7 @@ function DoneView(props) {
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <div style={{ fontSize: 13, color: wantsAny ? (isPaid ? "#10b981" : GOLD) : MUTED }}>
-                        {wantsAny && p.asoItem ? ITEM_LABEL[p.asoItem] + " — £" + ITEM_PRICE[p.asoItem] : "No asoebi"}
+                        {wantsAny && p.asoItem ? ITEM_LABEL[p.asoItem] + " -- £" + ITEM_PRICE[p.asoItem] : "No asoebi"}
                       </div>
                       {isPaid && <div style={{ fontSize: 11, color: "#10b981", marginTop: 2 }}>✓ Paid</div>}
                     </div>
@@ -1047,10 +936,8 @@ function DoneView(props) {
             </div>
 
             {hasNoAsoebi && (
-              <div style={{ background: NAVY + "08", border: "0.5px solid " + NAVY + "18", borderRadius: 10, padding: "13px 17px", marginBottom: 16, textAlign: "left" }}>
-                <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.75, fontWeight: 300 }}>
-                  Dress code for those without asoebi: <strong style={{ fontWeight: 700, color: NAVY }}>Navy Blue</strong> and <strong style={{ fontWeight: 700, color: GOLD }}>Gold</strong>
-                </p>
+              <div style={{ marginBottom: 16 }}>
+                <DressCode />
               </div>
             )}
 
@@ -1069,7 +956,6 @@ function DoneView(props) {
               </div>
             )}
 
-            <GiftBox />
             <Divider my={26} />
             <p style={{ fontSize: 13, color: MUTED + "88", letterSpacing: "0.12em" }}>MARIAM @ 50 &middot; 08/08/2026</p>
           </Card>
@@ -1080,15 +966,13 @@ function DoneView(props) {
 
   const msgs = {
     default:            { emoji: "✨", title: "Thank You",         body: "Your response has been received. We look forward to celebrating with you!" },
-    not_attending:      { emoji: "🌸", title: "Thank You",         body: "Thank you for your response. You will be missed!" },
-    gift:               { emoji: "💛", title: "Thank You So Much", body: "Your generosity means the world. Thank you for your gift!" },
+    not_attending:      { emoji: "🌸", title: "Thank You",         body: "Thank you for letting us know. You will be missed!" },
     asoebi_paid:        { emoji: "👗", title: "Wonderful!",        body: "Thank you! We cannot wait to see you in your beautiful attire." },
     asoebi_no:          { emoji: "💙", title: "See You There!",    body: null },
     asoebi_items_now:   { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Complete your payment and we cannot wait to see you!" },
     asoebi_items_later: { emoji: "⭐️", title: "You're Confirmed!", body: "Your selection is saved. Please send your bank transfer by 15 May 2026." },
   };
   const m = msgs[type] || msgs.default;
-  const showGift = ATTENDING_TYPES.includes(type);
 
   return (
     <Page>
@@ -1100,12 +984,20 @@ function DoneView(props) {
           <h2 style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: 36, fontWeight: 400, color: NAVY, margin: "22px 0 14px" }}>{m.title}</h2>
 
           {type === "asoebi_no" ? (
-            <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.85, fontWeight: 300 }}>
-              Thank you. We cannot wait to see you.<br />
-              Dress code: <strong style={{ fontWeight: 700, color: NAVY }}>Navy Blue</strong> and <strong style={{ fontWeight: 700, color: GOLD }}>Gold</strong>
-            </p>
+            <>
+              <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.85, fontWeight: 300, marginBottom: 20 }}>
+                Thank you. We cannot wait to see you.
+              </p>
+              <DressCode />
+            </>
           ) : (
             <p style={{ fontSize: 16, color: MUTED, lineHeight: 1.85, fontWeight: 300 }}>{m.body}</p>
+          )}
+
+          {type === "not_attending" && (
+            <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.7, fontWeight: 300, marginTop: 12 }}>
+              We hope to celebrate with you another time.
+            </p>
           )}
 
           {props.asoItem === "cap" && (type === "asoebi_items_now" || type === "asoebi_items_later") && (
@@ -1130,13 +1022,6 @@ function DoneView(props) {
               })}
               <p style={{ fontSize: 12, color: MUTED, marginTop: 10, lineHeight: 1.6 }}>Deadline: 15 May 2026. Use your name as reference.</p>
             </div>
-          )}
-
-          {showGift && (
-            <>
-              <Divider my={26} />
-              <GiftBox />
-            </>
           )}
 
           <Divider my={26} />
@@ -1174,13 +1059,8 @@ export default function App() {
     }
   }
 
-  async function handleContribYes() {
-    await save({ attending: false, contribution_choice: "yes" });
-    window.open(MONZO_LINK, "_blank");
-    setDoneType("gift"); setView("done");
-  }
-  async function handleContribNo() {
-    await save({ attending: false, contribution_choice: "no" });
+  async function handleNotAttending() {
+    await save({ attending: false });
     setDoneType("not_attending"); setView("done");
   }
   async function handleQ2YesPaid() {
@@ -1226,8 +1106,7 @@ export default function App() {
 
   if (view === "home")           return <HomeView onStart={function() { setView("details"); }} />;
   if (view === "details")        return <DetailsView onNext={function(n, em) { setName(n); setEmail(em); setView("q1"); }} onBack={function() { setView("home"); }} />;
-  if (view === "q1")             return <Q1View onYes={function() { setView("group_question"); }} onNo={function() { setView("contribution"); }} onBack={function() { setView("details"); }} />;
-  if (view === "contribution")   return <ContributionView onYes={handleContribYes} onNo={handleContribNo} onBack={function() { setView("q1"); }} saving={saving} />;
+  if (view === "q1")             return <Q1View onYes={function() { setView("group_question"); }} onNo={handleNotAttending} onBack={function() { setView("details"); }} />;
   if (view === "group_question") return <GroupQuestionView onJustMe={function() { setView("q2"); }} onFamily={function() { setView("group_build"); }} onBack={function() { setView("q1"); }} />;
   if (view === "q2")             return <Q2View onYes={function() { setView("asoebi_items"); }} onYesPaid={handleQ2YesPaid} onNo={handleQ2No} onBack={function() { setView("group_question"); }} />;
   if (view === "asoebi_items")   return <AsoebItems onConfirm={handleAsoebItem} onBack={function() { setView("q2"); }} saving={saving} />;
