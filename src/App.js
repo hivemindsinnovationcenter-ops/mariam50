@@ -482,7 +482,7 @@ function HomeView(props) {
           border: "1px solid " + GOLD + "44",
         }}>
           <img
-            src="/invite.png"
+            src="/preview.png"
             alt="Mariam's 50th Birthday Invitation"
             style={{ width: "100%", display: "block" }}
           />
