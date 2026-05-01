@@ -831,7 +831,6 @@ function GroupBuildView(props) {
   const [payMethod, setPayMethod] = useState(null);
 
   const leadWantsAny  = leadWants === "yes" || leadWants === "yes_paid";
-  const anyAsoebi     = leadWantsAny || members.some(function(m) { return m.wantsAsoebi === "yes" || m.wantsAsoebi === "yes_paid"; });
   const anyUnpaid     = leadWants === "yes" || members.some(function(m) { return m.wantsAsoebi === "yes"; });
 
   // Total only for unpaid items (paid ones are already settled)
