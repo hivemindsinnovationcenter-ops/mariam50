@@ -50,9 +50,9 @@ async function dbInsertMembers(guestId, members) {
     return {
       guest_id: guestId,
       full_name: m.name,
-      asoebi_choice: m.wantsAsoebi ? "yes" : "no",
-      asoebi_item:   (m.wantsAsoebi && m.asoItem) ? m.asoItem : null,
-      payment_status: m.wantsAsoebi ? "pending" : null,
+      asoebi_choice: (m.wantsAsoebi === "yes" || m.wantsAsoebi === "yes_paid") ? "yes" : "no",
+      asoebi_item:   (m.wantsAsoebi && m.wantsAsoebi !== false && m.asoItem) ? m.asoItem : null,
+      payment_status: m.wantsAsoebi === "yes_paid" ? "paid" : m.wantsAsoebi === "yes" ? "pending" : null,
     };
   });
   const r = await fetch(SUPABASE_URL + "/rest/v1/group_members", {
@@ -628,7 +628,7 @@ function GroupQuestionView(props) {
             />
             <ChoiceCard
               label="Me and family / guests"
-              sublabel="I'm bringing others"
+              sublabel="I'm bringing others -- I can set their asoebi too"
               icon="👨‍👩‍👧‍👦"
               selected={choice === "family"}
               onClick={function() { setChoice("family"); }}
@@ -733,15 +733,21 @@ function AsoebItems(props) {
 // ── Group build view ───────────────────────────────────────
 
 function AsoToggle(props) {
+  // value can be: false (no), "yes" (wants, not paid), "yes_paid" (wants, already paid)
+  const opts = [
+    { v: "yes",      l: "Yes",  activeColor: GOLD },
+    { v: "yes_paid", l: "Paid", activeColor: "#10b981" },
+    { v: false,      l: "No",   activeColor: NAVY },
+  ];
   return (
-    <div style={{ display: "flex", gap: 7 }}>
-      {[{v: true, l: "Yes"}, {v: false, l: "No"}].map(function(opt) {
+    <div style={{ display: "flex", gap: 6 }}>
+      {opts.map(function(opt) {
         const active = props.value === opt.v;
         return (
-          <button key={opt.l} onClick={function() { props.onChange(opt.v); }} style={{
-            padding: "6px 16px", fontSize: 13, borderRadius: 20,
-            border: "0.5px solid " + (active ? (opt.v ? GOLD : NAVY + "66") : NAVY + "22"),
-            background: active ? (opt.v ? GOLD : NAVY) : "transparent",
+          <button key={String(opt.v)} onClick={function() { props.onChange(opt.v); }} style={{
+            padding: "5px 13px", fontSize: 12, borderRadius: 20,
+            border: "0.5px solid " + (active ? opt.activeColor : NAVY + "22"),
+            background: active ? opt.activeColor : "transparent",
             color: active ? "#fff" : MUTED,
             cursor: "pointer", fontFamily: "'Jost',sans-serif",
             fontWeight: active ? 500 : 400, transition: "all .2s",
@@ -756,13 +762,16 @@ function AsoToggle(props) {
 
 function PersonCard(props) {
   const isCap = props.asoItem === "cap";
+  const wantsAny = props.wantsAsoebi === "yes" || props.wantsAsoebi === "yes_paid";
+  const isPaid   = props.wantsAsoebi === "yes_paid";
+  const borderColor = isPaid ? "#10b981" : wantsAny ? GOLD : NAVY + "22";
+  const bg          = isPaid ? "#10b98108" : wantsAny ? GOLD + "05" : NAVY + "03";
   return (
     <div style={{
-      border: "0.5px solid " + (props.wantsAsoebi ? GOLD + "66" : NAVY + "18"),
-      borderLeft: "4px solid " + (props.wantsAsoebi ? GOLD : NAVY + "22"),
+      border: "0.5px solid " + borderColor,
+      borderLeft: "4px solid " + borderColor,
       borderRadius: 12, padding: "16px 18px",
-      background: props.wantsAsoebi ? GOLD + "05" : NAVY + "03",
-      transition: "all .2s",
+      background: bg, transition: "all .2s",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
         {props.isLead ? (
@@ -788,11 +797,16 @@ function PersonCard(props) {
         <span style={{ fontSize: 13, color: MUTED }}>Asoebi / Gele / Cap?</span>
         <AsoToggle value={props.wantsAsoebi} onChange={props.onToggleAsoebi} />
       </div>
-      {props.wantsAsoebi && (
+      {isPaid && (
+        <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "#059669", fontWeight: 500 }}>
+          <span>✓</span><span>Payment already received</span>
+        </div>
+      )}
+      {wantsAny && (
         <select
           value={props.asoItem || ""}
           onChange={function(e) { props.onItemChange(e.target.value); }}
-          style={{ width: "100%", marginTop: 12, padding: "10px 13px", border: "0.5px solid " + GOLD + "55", borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }}
+          style={{ width: "100%", marginTop: 12, padding: "10px 13px", border: "0.5px solid " + (isPaid ? "#10b98155" : GOLD + "55"), borderRadius: 8, fontSize: 14, color: NAVY, background: "#FAF8F2", fontFamily: "'Jost',sans-serif", outline: "none" }}
         >
           <option value="">Select an item...</option>
           {ITEMS.map(function(it) {
@@ -800,7 +814,7 @@ function PersonCard(props) {
           })}
         </select>
       )}
-      {isCap && props.wantsAsoebi && (
+      {isCap && wantsAny && (
         <div style={{ marginTop: 10, padding: "9px 13px", background: "#fff8e1", borderRadius: 8, fontSize: 13, color: NAVY, lineHeight: 1.55 }}>
           👒 Please can all men wear white on the day with their cap. Kindly add cap size in payment reference. Thank you
         </div>
@@ -810,24 +824,33 @@ function PersonCard(props) {
 }
 
 function GroupBuildView(props) {
+  // leadWants: false | "yes" | "yes_paid"
   const [leadWants, setLeadWants] = useState(false);
   const [leadItem,  setLeadItem]  = useState("");
   const [members,   setMembers]   = useState([{ id: 1, name: "", wantsAsoebi: false, asoItem: "" }]);
   const [payMethod, setPayMethod] = useState(null);
 
-  const anyAsoebi = leadWants || members.some(function(m) { return m.wantsAsoebi; });
+  const leadWantsAny  = leadWants === "yes" || leadWants === "yes_paid";
+  const anyAsoebi     = leadWantsAny || members.some(function(m) { return m.wantsAsoebi === "yes" || m.wantsAsoebi === "yes_paid"; });
+  const anyUnpaid     = leadWants === "yes" || members.some(function(m) { return m.wantsAsoebi === "yes"; });
 
+  // Total only for unpaid items (paid ones are already settled)
   let total = 0;
-  if (leadWants && leadItem) total += ITEM_PRICE[leadItem] || 0;
-  members.forEach(function(m) { if (m.wantsAsoebi && m.asoItem) total += ITEM_PRICE[m.asoItem] || 0; });
+  if (leadWants === "yes" && leadItem) total += ITEM_PRICE[leadItem] || 0;
+  members.forEach(function(m) { if (m.wantsAsoebi === "yes" && m.asoItem) total += ITEM_PRICE[m.asoItem] || 0; });
 
-  const anyCap = (leadWants && leadItem === "cap") || members.some(function(m) { return m.wantsAsoebi && m.asoItem === "cap"; });
+  // Paid total (for display)
+  let paidTotal = 0;
+  if (leadWants === "yes_paid" && leadItem) paidTotal += ITEM_PRICE[leadItem] || 0;
+  members.forEach(function(m) { if (m.wantsAsoebi === "yes_paid" && m.asoItem) paidTotal += ITEM_PRICE[m.asoItem] || 0; });
+
+  const anyCap = (leadWantsAny && leadItem === "cap") || members.some(function(m) { return (m.wantsAsoebi === "yes" || m.wantsAsoebi === "yes_paid") && m.asoItem === "cap"; });
 
   const canConfirm = (
     members.every(function(m) { return m.name.trim().length > 0; }) &&
-    (!leadWants || leadItem) &&
-    members.every(function(m) { return !m.wantsAsoebi || m.asoItem; }) &&
-    (!anyAsoebi || payMethod)
+    (!leadWantsAny || leadItem) &&
+    members.every(function(m) { return (m.wantsAsoebi === false) || m.asoItem; }) &&
+    (!anyUnpaid || payMethod)
   );
 
   function addMember() {
@@ -844,7 +867,7 @@ function GroupBuildView(props) {
         if (m.id !== id) return m;
         const upd = {};
         upd[field] = value;
-        if (field === "wantsAsoebi" && !value) upd.asoItem = "";
+        if (field === "wantsAsoebi" && value === false) upd.asoItem = "";
         return Object.assign({}, m, upd);
       });
     });
@@ -852,8 +875,8 @@ function GroupBuildView(props) {
 
   function handleConfirm() {
     props.onConfirm(
-      { wantsAsoebi: leadWants, item: leadWants ? leadItem : null },
-      members.map(function(m) { return { name: m.name.trim(), wantsAsoebi: m.wantsAsoebi, asoItem: m.wantsAsoebi ? m.asoItem : null }; }),
+      { wantsAsoebi: leadWants, item: leadWantsAny ? leadItem : null },
+      members.map(function(m) { return { name: m.name.trim(), wantsAsoebi: m.wantsAsoebi, asoItem: (m.wantsAsoebi && m.wantsAsoebi !== false) ? m.asoItem : null }; }),
       payMethod || "none"
     );
   }
@@ -873,7 +896,7 @@ function GroupBuildView(props) {
             <PersonCard
               isLead name={props.leadName}
               wantsAsoebi={leadWants} asoItem={leadItem}
-              onToggleAsoebi={function(v) { setLeadWants(v); if (!v) setLeadItem(""); }}
+              onToggleAsoebi={function(v) { setLeadWants(v); if (v === false) setLeadItem(""); }}
               onItemChange={setLeadItem}
             />
             {members.map(function(m) {
@@ -896,14 +919,25 @@ function GroupBuildView(props) {
             </button>
           )}
 
-          {total > 0 && (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: NAVY, borderRadius: 10, padding: "14px 18px", marginBottom: 14 }}>
-              <span style={{ fontSize: 14, color: CREAM, fontWeight: 500 }}>Total payment due</span>
-              <span style={{ fontSize: 22, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: GOLD }}>£{total}</span>
+          {/* Summary: paid vs outstanding */}
+          {(total > 0 || paidTotal > 0) && (
+            <div style={{ borderRadius: 10, overflow: "hidden", marginBottom: 14 }}>
+              {paidTotal > 0 && (
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: "#10b981", padding: "11px 18px" }}>
+                  <span style={{ fontSize: 13, color: "#fff", fontWeight: 500 }}>Already paid</span>
+                  <span style={{ fontSize: 18, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: "#fff" }}>£{paidTotal}</span>
+                </div>
+              )}
+              {total > 0 && (
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", background: NAVY, padding: "11px 18px" }}>
+                  <span style={{ fontSize: 13, color: CREAM, fontWeight: 500 }}>Outstanding payment</span>
+                  <span style={{ fontSize: 18, fontFamily: "'Cormorant Garamond',serif", fontWeight: 500, color: GOLD }}>£{total}</span>
+                </div>
+              )}
             </div>
           )}
 
-          {anyAsoebi && (
+          {anyUnpaid && (
             <>
               <Divider my={16} />
               <PaySection payMethod={payMethod} setPayMethod={setPayMethod} total={total} isCap={anyCap} />
@@ -955,9 +989,11 @@ function DoneView(props) {
     const gd = props.groupData;
     const allPeople = [{ name: props.leadName, wantsAsoebi: gd.lead.wantsAsoebi, asoItem: gd.lead.item, isLead: true }]
       .concat(gd.members.map(function(m) { return { name: m.name, wantsAsoebi: m.wantsAsoebi, asoItem: m.asoItem }; }));
-    const hasNoAsoebi = allPeople.some(function(p) { return !p.wantsAsoebi; });
+    const hasNoAsoebi = allPeople.some(function(p) { return !p.wantsAsoebi || p.wantsAsoebi === false; });
     let total = 0;
-    allPeople.forEach(function(p) { if (p.wantsAsoebi && p.asoItem) total += ITEM_PRICE[p.asoItem] || 0; });
+    allPeople.forEach(function(p) {
+      if ((p.wantsAsoebi === "yes" || p.wantsAsoebi === true) && p.asoItem) total += ITEM_PRICE[p.asoItem] || 0;
+    });
 
     return (
       <Page>
@@ -976,14 +1012,19 @@ function DoneView(props) {
                 Your party &mdash; {allPeople.length} {allPeople.length === 1 ? "person" : "people"}
               </div>
               {allPeople.map(function(p, i) {
+                const wantsAny = p.wantsAsoebi === "yes" || p.wantsAsoebi === "yes_paid" || p.wantsAsoebi === true;
+                const isPaid   = p.wantsAsoebi === "yes_paid";
                 return (
                   <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "9px 0", borderBottom: i < allPeople.length - 1 ? "0.5px solid " + GOLD + "22" : "none" }}>
                     <div>
                       <span style={{ fontSize: 15, fontWeight: 500, color: CREAM }}>{p.name}</span>
                       {p.isLead && <span style={{ fontSize: 11, color: GOLD, marginLeft: 7, letterSpacing: "0.06em" }}>you</span>}
                     </div>
-                    <div style={{ fontSize: 13, color: p.wantsAsoebi ? GOLD : MUTED }}>
-                      {p.wantsAsoebi && p.asoItem ? ITEM_LABEL[p.asoItem] + " -- £" + ITEM_PRICE[p.asoItem] : "No asoebi"}
+                    <div style={{ textAlign: "right" }}>
+                      <div style={{ fontSize: 13, color: wantsAny ? (isPaid ? "#10b981" : GOLD) : MUTED }}>
+                        {wantsAny && p.asoItem ? ITEM_LABEL[p.asoItem] + " — £" + ITEM_PRICE[p.asoItem] : "No asoebi"}
+                      </div>
+                      {isPaid && <div style={{ fontSize: 11, color: "#10b981", marginTop: 2 }}>✓ Paid</div>}
                     </div>
                   </div>
                 );
@@ -1158,9 +1199,9 @@ export default function App() {
         full_name:      name,
         email:          email || null,
         attending:      true,
-        asoebi_choice:  leadAso.wantsAsoebi ? "yes" : "no",
-        asoebi_item:    leadAso.wantsAsoebi ? leadAso.item : null,
-        payment_status: leadAso.wantsAsoebi ? "pending" : null,
+        asoebi_choice:  (leadAso.wantsAsoebi === "yes" || leadAso.wantsAsoebi === "yes_paid") ? "yes" : "no",
+        asoebi_item:    (leadAso.wantsAsoebi && leadAso.wantsAsoebi !== false) ? leadAso.item : null,
+        payment_status: leadAso.wantsAsoebi === "yes_paid" ? "paid" : leadAso.wantsAsoebi === "yes" ? "pending" : null,
       });
       await dbInsertMembers(guestId, groupMembers);
       setDoneGroupData({ lead: leadAso, members: groupMembers, payMethod: payMethod });
