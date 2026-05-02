@@ -10,7 +10,7 @@ var BANK_NAME    = "Monzo Bank";
 var ACCOUNT_NAME = "Oluwafunmibi Mary John-Aloba";
 var SORT_CODE    = "04-00-03";
 var ACCOUNT_NO   = "06775165";
-var DEADLINE      = new Date("2026-05-15T23:59:59");
+var DEADLINE      = new Date("2026-05-25T23:59:59");
 // ============================================================
 
 function generateUUID() {
